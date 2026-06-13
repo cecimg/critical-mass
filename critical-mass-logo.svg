@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" fill="none">
+  <defs>
+    <style>
+      .stroke-main { stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+      .stroke-thin { stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+      .stroke-fine { stroke: currentColor; stroke-width: 1.2; stroke-linecap: round; fill: none; }
+      .fill-main { fill: currentColor; }
+    </style>
+  </defs>
+
+  <!-- Outer spiral arc -->
+  <path class="stroke-main"
+    d="M 60 88
+       Q 90 56 138 60
+       Q 184 64 188 100"
+    transform="rotate(-12 120 120)"/>
+  <path class="stroke-main"
+    d="M 180 152
+       Q 150 184 102 180
+       Q 56 176 52 140"
+    transform="rotate(-12 120 120)"/>
+
+  <!-- Mid spiral arc -->
+  <ellipse class="stroke-thin" cx="120" cy="120" rx="50" ry="20" transform="rotate(-12 120 120)"/>
+
+  <!-- Inner core ring -->
+  <ellipse class="stroke-thin" cx="120" cy="120" rx="26" ry="11" transform="rotate(-12 120 120)"/>
+
+  <!-- Galactic core dot -->
+  <circle class="fill-main" cx="120" cy="120" r="5.5"/>
+
+  <!-- Diagonal needle / antenna -->
+  <line class="stroke-main" x1="156" y1="60" x2="92" y2="178"/>
+  <line class="stroke-thin" x1="156" y1="60" x2="148" y2="74"/>
+  <line class="stroke-thin" x1="92" y1="178" x2="100" y2="164"/>
+
+  <!-- Star: cross top-left -->
+  <g transform="translate(64 64)">
+    <line class="stroke-fine" x1="-6" y1="0" x2="6" y2="0"/>
+    <line class="stroke-fine" x1="0" y1="-6" x2="0" y2="6"/>
+  </g>
+  <!-- Star: cross bottom-left -->
+  <g transform="translate(78 188)">
+    <line class="stroke-fine" x1="-5" y1="0" x2="5" y2="0"/>
+    <line class="stroke-fine" x1="0" y1="-5" x2="0" y2="5"/>
+  </g>
+  <!-- Star: cross bottom-right -->
+  <g transform="translate(186 162)">
+    <line class="stroke-fine" x1="-5" y1="0" x2="5" y2="0"/>
+    <line class="stroke-fine" x1="0" y1="-5" x2="0" y2="5"/>
+  </g>
+  <!-- Star: cross top-right -->
+  <g transform="translate(190 78)">
+    <line class="stroke-fine" x1="-4" y1="0" x2="4" y2="0"/>
+    <line class="stroke-fine" x1="0" y1="-4" x2="0" y2="4"/>
+  </g>
+
+  <!-- Small dots scattered -->
+  <circle class="fill-main" cx="48" cy="120" r="1.4"/>
+  <circle class="fill-main" cx="200" cy="120" r="1.4"/>
+  <circle class="fill-main" cx="160" cy="200" r="1.4"/>
+  <circle class="fill-main" cx="80" cy="42" r="1.2"/>
+  <circle class="fill-main" cx="208" cy="56" r="1.2"/>
+  <circle class="fill-main" cx="40" cy="180" r="1.2"/>
+  <circle class="fill-main" cx="118" cy="40" r="1.0"/>
+  <circle class="fill-main" cx="118" cy="200" r="1.0"/>
+</svg>

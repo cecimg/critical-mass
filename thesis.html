@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thesis — Critical Mass</title>
+<meta name="description" content="The investment thesis of Critical Mass — a generational repricing of orbit and the case for concentrated capital in aerospace infrastructure, intelligence, and industrial backbone." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050510;
+    --bg-2: #07091a;
+    --navy: #0a1226;
+    --graphite: #161a24;
+    --steel: #2a313f;
+    --line: rgba(255,255,255,0.06);
+    --line-2: rgba(255,255,255,0.12);
+    --text: #ffffff;
+    --text-dim: rgba(255,255,255,0.7);
+    --text-mid: rgba(255,255,255,0.55);
+    --text-mute: rgba(255,255,255,0.38);
+    --gold: #C8A850;
+    --gold-soft: rgba(200,168,80,0.6);
+    --gold-glow: rgba(200,168,80,0.18);
+    --blue: #4488FF;
+    --blue-soft: rgba(68,136,255,0.55);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #particles {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  /* ============== NAV (matches home) ============== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background .4s ease, border-color .4s ease, padding .4s ease;
+    border-bottom: 1px solid transparent;
+  }
+  nav.scrolled {
+    background: rgba(5,5,16,0.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 56px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: #F2EBD8;
+  }
+  .brand-mark {
+    width: 34px; height: 34px;
+    color: #F2EBD8;
+  }
+  .brand-mark svg { display: block; width: 100%; height: 100%; }
+  .brand-stack { display: flex; flex-direction: column; line-height: 1; }
+  .brand-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #F2EBD8;
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+  .nav-links a {
+    color: var(--text-dim);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color .3s ease;
+    position: relative;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--gold); }
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    bottom: -8px;
+    height: 1px;
+    background: var(--gold);
+    box-shadow: 0 0 8px var(--gold-soft);
+  }
+  .nav-cta {
+    border: 1px solid var(--gold-soft);
+    color: var(--gold);
+    background: rgba(200,168,80,0.04);
+    padding: 11px 22px;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all .3s ease;
+  }
+  .nav-cta:hover {
+    background: rgba(200,168,80,0.12);
+    box-shadow: 0 0 28px rgba(200,168,80,0.25);
+  }
+
+  /* ============== HERO ============== */
+  .hero {
+    position: relative;
+    min-height: 90vh;
+    padding: 180px 56px 80px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    top: 30%; right: -10%;
+    width: 60%; height: 80%;
+    background: radial-gradient(ellipse at center, rgba(68,136,255,0.10) 0%, transparent 60%);
+    filter: blur(40px);
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -20%; left: -10%;
+    width: 50%; height: 70%;
+    background: radial-gradient(ellipse at center, rgba(200,168,80,0.10) 0%, transparent 60%);
+    filter: blur(40px);
+  }
+  /* Faint trajectory line */
+  .trajectory {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140%; height: 60%;
+    border: 1px dashed rgba(200,168,80,0.18);
+    border-radius: 50%;
+    pointer-events: none;
+    transform-origin: center;
+  }
+  .tech-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at 50% 60%, rgba(0,0,0,1) 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 60%, rgba(0,0,0,1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+    font-weight: 500;
+  }
+  .doc-meta .dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--gold-soft);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.85); }
+  }
+  .doc-meta .divider {
+    width: 1px; height: 12px;
+    background: rgba(200,168,80,0.4);
+  }
+  .hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 0 0 36px 0;
+    max-width: 1100px;
+  }
+  .hero-title .accent {
+    background: linear-gradient(135deg, #C8A850 0%, #ffffff 60%, #C8A850 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .hero-sub {
+    max-width: 640px;
+    color: var(--text-dim);
+    font-size: 18px;
+    line-height: 1.65;
+    font-weight: 300;
+    margin: 0 0 56px 0;
+  }
+  .hero-meta-row {
+    display: flex;
+    gap: 60px;
+    flex-wrap: wrap;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    max-width: 900px;
+  }
+  .hero-meta-row > div {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .hero-meta-row .key {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-mute);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+  .hero-meta-row .val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 400;
+  }
+
+  /* ============== TOC / CHAPTER NAV (sticky side rail on desktop) ============== */
+  .layout {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 80px;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 56px;
+  }
+  .toc {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+    padding: 24px 0 24px 0;
+    border-top: 1px solid var(--line);
+  }
+  .toc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-mute);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    display: block;
+  }
+  .toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .toc a {
+    display: flex;
+    gap: 14px;
+    color: var(--text-mid);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    text-decoration: none;
+    transition: color .3s ease;
+    line-height: 1.45;
+  }
+  .toc a:hover { color: var(--text); }
+  .toc a.active { color: var(--gold); }
+  .toc a .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text-mute);
+    min-width: 28px;
+    flex-shrink: 0;
+  }
+  .toc a.active .num { color: var(--gold); }
+  .toc-progress {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .toc-progress .pkey {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-mute);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .toc-progress .pbar {
+    width: 100%; height: 2px;
+    background: var(--line);
+    overflow: hidden;
+    position: relative;
+  }
+  .toc-progress .pfill {
+    position: absolute;
+    inset: 0 100% 0 0;
+    background: linear-gradient(90deg, var(--gold), rgba(200,168,80,0.4));
+    box-shadow: 0 0 10px var(--gold-soft);
+    transition: right .15s linear;
+  }
+
+  /* ============== CHAPTERS / CONTENT ============== */
+  .content {
+    padding: 60px 0 100px 0;
+  }
+  .chapter {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .chapter:first-child { padding-top: 0; }
+  .chapter:last-child { border-bottom: none; }
+  .chapter-head {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 32px;
+    align-items: baseline;
+    margin-bottom: 48px;
+  }
+  .chapter-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.22em;
+    font-weight: 500;
+  }
+  .chapter-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400;
+    font-size: clamp(36px, 4.5vw, 56px);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+  .chapter-lede {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    font-size: clamp(20px, 1.8vw, 26px);
+    line-height: 1.4;
+    color: var(--text);
+    max-width: 780px;
+    margin: 0 0 40px 0;
+    letter-spacing: -0.005em;
+  }
+  .chapter p {
+    font-size: 16px;
+    color: var(--text-dim);
+    line-height: 1.78;
+    max-width: 780px;
+    margin: 0 0 22px 0;
+    font-weight: 300;
+  }
+  .chapter p strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .chapter p em {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .chapter h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.005em;
+    margin: 48px 0 18px 0;
+  }
+  .chapter h3 .h-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 0.18em;
+    margin-right: 14px;
+    font-weight: 500;
+  }
+
+  /* Pull quote */
+  .pullquote {
+    border-left: 1px solid var(--gold-soft);
+    padding: 8px 0 8px 28px;
+    margin: 40px 0;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--text);
+    font-weight: 300;
+    font-style: italic;
+    max-width: 720px;
+    letter-spacing: -0.005em;
+  }
+  .pullquote span { color: var(--gold); font-style: normal; }
+
+  /* Two-column callout */
+  .pillar-block {
+    border-top: 1px solid var(--line);
+    padding: 32px 0;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+  }
+  .pillar-block:last-of-type { border-bottom: 1px solid var(--line); }
+  .pillar-key {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .pillar-key .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.22em;
+  }
+  .pillar-key .name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.15;
+  }
+  .pillar-body p { margin: 0 0 16px 0; }
+  .pillar-body p:last-child { margin-bottom: 0; }
+  .pillar-body .label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-mute);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin: 18px 0 8px 0;
+  }
+
+  /* Data viz block */
+  .data-block {
+    background: linear-gradient(180deg, rgba(10,18,38,0.4), transparent);
+    border: 1px solid var(--line);
+    padding: 32px;
+    margin: 40px 0;
+    max-width: 780px;
+    border-radius: 2px;
+  }
+  .data-block .dlabel {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .data-block .dtitle {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  .data-block svg { display: block; width: 100%; height: auto; }
+  .data-block .dnote {
+    font-size: 12px;
+    color: var(--text-mute);
+    margin-top: 18px;
+    line-height: 1.5;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em;
+  }
+
+  /* Boundary list */
+  .boundary {
+    border-top: 1px solid var(--line);
+    padding: 26px 0;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .boundary:last-of-type { border-bottom: 1px solid var(--line); }
+  .boundary .x {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: rgba(200,168,80,0.5);
+    letter-spacing: 0.1em;
+    padding-top: 2px;
+  }
+  .boundary h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 0 8px 0;
+    color: var(--text);
+  }
+  .boundary p {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    line-height: 1.65;
+    margin: 0;
+    max-width: 720px;
+  }
+
+  /* ============== CTA ============== */
+  .cta {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    padding: 140px 56px 160px 56px;
+    z-index: 1;
+  }
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(200,168,80,0.14) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 30%, rgba(68,136,255,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cta-arc {
+    position: absolute;
+    bottom: -60%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160vw;
+    height: 160vw;
+    border-top: 1px solid rgba(200,168,80,0.3);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .cta-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--gold-soft);
+  }
+  .cta-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px 0;
+  }
+  .cta-title em {
+    font-style: italic;
+    font-weight: 400;
+    background: linear-gradient(135deg, #C8A850 0%, #ffffff 50%, #C8A850 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .cta-sub {
+    color: var(--text-dim);
+    font-size: 16.5px;
+    line-height: 1.65;
+    max-width: 580px;
+    margin: 0 auto 44px auto;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 30px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .35s ease;
+    font-family: 'Inter', sans-serif;
+    border: 1px solid transparent;
+    background: transparent;
+  }
+  .btn-primary {
+    border-color: var(--gold-soft);
+    background: rgba(200,168,80,0.06);
+    color: var(--gold);
+  }
+  .btn-primary:hover {
+    background: rgba(200,168,80,0.14);
+    box-shadow: 0 0 32px rgba(200,168,80,0.25);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    border-color: var(--line-2);
+    color: var(--text);
+  }
+  .btn-ghost:hover {
+    border-color: rgba(255,255,255,0.32);
+    background: rgba(255,255,255,0.02);
+  }
+  .btn .arrow {
+    width: 14px; height: 1px;
+    background: currentColor;
+    position: relative;
+    transition: transform .35s ease;
+  }
+  .btn .arrow::after {
+    content: '';
+    position: absolute;
+    right: 0; top: -3px;
+    width: 7px; height: 7px;
+    border-right: 1px solid currentColor;
+    border-top: 1px solid currentColor;
+    transform: rotate(45deg);
+  }
+  .btn:hover .arrow { transform: translateX(4px); }
+  .cta-actions {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ============== FOOTER (matches home) ============== */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    padding: 72px 56px 36px 56px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  .footer-brand .brand { margin-bottom: 18px; }
+  .footer-tag {
+    color: var(--text-dim);
+    font-size: 13.5px;
+    line-height: 1.65;
+    max-width: 320px;
+  }
+  .brand-tag {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(242, 235, 216, 0.55);
+    margin-top: 4px;
+  }
+  .footer-col h5 {
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 0 0 22px 0;
+  }
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-col a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13.5px;
+    transition: color .3s ease;
+  }
+  .footer-col a:hover { color: var(--text); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 28px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-bottom span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.08em;
+  }
+
+  /* ============== REVEAL ============== */
+  @keyframes revealFallback { to { opacity: 1; transform: translateY(0); } }
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: revealFallback 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.revealed { opacity: 1; transform: translateY(0); animation: none; }
+  .reveal.delay-1 { animation-delay: 0.75s; transition-delay: .1s; }
+  .reveal.delay-2 { animation-delay: 0.9s; transition-delay: .2s; }
+
+  /* ============== RESPONSIVE ============== */
+  @media (max-width: 1100px) {
+    .layout { grid-template-columns: 1fr; gap: 40px; padding: 0 32px; }
+    .toc { position: static; padding: 0 0 24px 0; border-top: none; border-bottom: 1px solid var(--line); }
+    .toc ul { flex-direction: row; flex-wrap: wrap; gap: 18px 24px; }
+    .toc-progress { display: none; }
+    nav, .hero, .cta, footer { padding-left: 32px; padding-right: 32px; }
+    nav.scrolled { padding-left: 32px; padding-right: 32px; }
+    .pillar-block { grid-template-columns: 1fr; gap: 18px; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    nav { padding: 18px 22px; }
+    nav.scrolled { padding: 14px 22px; }
+    .hero { padding: 130px 22px 60px 22px; }
+    .layout { padding: 0 22px; }
+    .cta { padding: 90px 22px; }
+    footer { padding: 56px 22px 28px 22px; }
+    .chapter-head { grid-template-columns: 1fr; gap: 12px; }
+    .footer-top { grid-template-columns: 1fr; gap: 36px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+    .hero-meta-row { gap: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- ============== NAV ============== -->
+<nav id="nav">
+  <a href="index.html" class="brand">
+    <span class="brand-mark">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="50" cy="50" rx="32" ry="11" stroke-width="2" transform="rotate(-22 50 50)"/>
+        <ellipse cx="50" cy="50" rx="14" ry="5" stroke-width="2" transform="rotate(-22 50 50)"/>
+        <circle cx="50" cy="50" r="3.2" fill="currentColor" stroke="none"/>
+        <line x1="74" y1="22" x2="30" y2="80" stroke-width="2.4"/>
+        <g stroke-width="1.4">
+          <line x1="20" y1="22" x2="26" y2="22"/>
+          <line x1="23" y1="19" x2="23" y2="25"/>
+        </g>
+        <g stroke-width="1.4">
+          <line x1="78" y1="82" x2="84" y2="82"/>
+          <line x1="81" y1="79" x2="81" y2="85"/>
+        </g>
+        <circle cx="14" cy="58" r="1" fill="currentColor" stroke="none"/>
+        <circle cx="86" cy="42" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+    </span>
+    <span class="brand-stack">
+      <span class="brand-name">Critical Mass</span>
+    </span>
+  </a>
+  <div class="nav-links">
+    <a href="thesis.html" class="active">Thesis</a>
+    <a href="index.html#focus">Focus</a>
+    <a href="index.html#sectors">Portfolio</a>
+    <a href="index.html#approach">Approach</a>
+    <a href="index.html#contact" class="nav-cta">Get in touch</a>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <div class="tech-grid parallax-layer"></div>
+    <div class="trajectory parallax-layer"></div>
+  </div>
+  <div class="hero-content">
+    <div class="doc-meta reveal">
+      <span class="dot"></span>
+      <span>Investment Memo · Vol. 01</span>
+      <span class="divider"></span>
+      <span>Read time · 8 min</span>
+      <span class="divider"></span>
+      <span>Published · 2026</span>
+    </div>
+    <h1 class="hero-title reveal delay-1">
+      A generational repricing<br/>
+      of <span class="accent">orbit.</span>
+    </h1>
+    <p class="hero-sub reveal delay-2">
+      The investment thesis of Critical Mass — why the next decade of aerospace will be defined by execution, and why concentrated, technically literate capital is the right architecture for backing the companies that will execute.
+    </p>
+    <div class="hero-meta-row reveal delay-2">
+      <div>
+        <span class="key">Mandate</span>
+        <span class="val">Aerospace · Defense · Space Economy</span>
+      </div>
+      <div>
+        <span class="key">Stage</span>
+        <span class="val">Seed → Series B</span>
+      </div>
+      <div>
+        <span class="key">Geography</span>
+        <span class="val">U.S. & Allied</span>
+      </div>
+      <div>
+        <span class="key">Posture</span>
+        <span class="val">Long-Hold · Concentrated</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== LAYOUT: TOC + CONTENT ============== -->
+<div class="layout">
+
+  <!-- Sticky table of contents -->
+  <aside class="toc" id="toc">
+    <span class="toc-label">Contents</span>
+    <ul>
+      <li><a href="#ch-01" data-target="ch-01"><span class="num">01</span> The Moment</a></li>
+      <li><a href="#ch-02" data-target="ch-02"><span class="num">02</span> Three Pillars</a></li>
+      <li><a href="#ch-03" data-target="ch-03"><span class="num">03</span> Why Now</a></li>
+      <li><a href="#ch-04" data-target="ch-04"><span class="num">04</span> Capital Discipline</a></li>
+      <li><a href="#ch-05" data-target="ch-05"><span class="num">05</span> Boundaries</a></li>
+      <li><a href="#ch-06" data-target="ch-06"><span class="num">06</span> The Decade Ahead</a></li>
+    </ul>
+    <div class="toc-progress">
+      <span class="pkey">Read Progress</span>
+      <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <article class="content">
+
+    <!-- ============== CHAPTER 01 ============== -->
+    <section class="chapter" id="ch-01">
+      <header class="chapter-head reveal">
+        <span class="chapter-num">/ Chapter 01</span>
+        <h2 class="chapter-title">The Moment</h2>
+      </header>
+      <p class="chapter-lede reveal">
+        Space is no longer a frontier in the exploratory sense. It is becoming infrastructure — and the interesting question is no longer whether we can reach orbit, but who will own its layers.
+      </p>
+      <p class="reveal">
+        For sixty years, space was a state-funded program. For the last fifteen, it has been a venture experiment. The next ten years are something different: the construction of <strong>industrial infrastructure</strong> in low Earth orbit, in deep-space communications, in dual-use sensing, and in the manufacturing supply chain that supports all of it.
+      </p>
+      <p class="reveal">
+        The hardest problems are no longer reaching orbit. They are sustaining commerce there, integrating it with terrestrial systems, and translating space-based intelligence into operating advantage on Earth. These are problems of execution, capital, and supply chain — the kind that reward technical depth, patience, and ownership.
+      </p>
+      <p class="pullquote reveal">
+        For the first time, the economics of space rhyme with those of any other capital-intensive industry — durable, technical, and <span>investable.</span>
+      </p>
+      <p class="reveal">
+        This is the operating environment Critical Mass was built for. We are not a vehicle for thematic exposure to "space." We are a concentrated, technically led capital partner for the companies actually building the infrastructure, intelligence, and industrial backbone of the space economy.
+      </p>
+    </section>
+
+    <!-- ============== CHAPTER 02 ============== -->
+    <section class="chapter" id="ch-02">
+      <header class="chapter-head reveal">
+        <span class="chapter-num">/ Chapter 02</span>
+        <h2 class="chapter-title">Three Pillars.</h2>
+      </header>
+      <p class="chapter-lede reveal">
+        Our mandate is concentrated and deliberate. We invest across three categories of the space economy where capital, technical depth, and timing converge.
+      </p>
+
+      <div class="pillar-block reveal">
+        <div class="pillar-key">
+          <span class="num">/ 01</span>
+          <span class="name">Infrastructure</span>
+        </div>
+        <div class="pillar-body">
+          <p>
+            The physical layer of the space economy — launch, in-space mobility, propulsion, satellite communications, ground systems, and on-orbit servicing. These are capital-intensive, hardware-defining companies whose advantage compounds with execution.
+          </p>
+          <p>
+            We believe value here accrues to operators with durable cost or capability advantages: launch teams who can hold cadence at price, propulsion systems that meet a meaningful customer specification, comms architectures with defensible network economics, servicing platforms with mission heritage. First movers with execution discipline accumulate moats that are difficult to replicate.
+          </p>
+          <span class="label">What we look for</span>
+          <p>
+            Technical teams with launch, propulsion, or aerospace systems heritage. Defensible IP. A credible commercial or government pipeline at Series A. Capital efficiency with a path to recurring revenue or contracted backlog.
+          </p>
+        </div>
+      </div>
+
+      <div class="pillar-block reveal">
+        <div class="pillar-key">
+          <span class="num">/ 02</span>
+          <span class="name">Intelligence</span>
+        </div>
+        <div class="pillar-body">
+          <p>
+            The data and software layer — Earth observation, synthetic-aperture radar, signals intelligence, geospatial AI, autonomy, and the analytic platforms that turn raw orbital data into operational decisions for governments and enterprise.
+          </p>
+          <p>
+            Orbital data collection is becoming abundant; the value will accrue to companies that translate that abundance into decisions. The middle layer — tasking, fusion, geospatial AI, and decision platforms — is where defensible IP and durable customer relationships will compound. Pure pixel businesses face commoditization; intelligence businesses do not.
+          </p>
+          <span class="label">What we look for</span>
+          <p>
+            Technical depth in machine learning, sensor fusion, or geospatial systems. Privileged access to proprietary data sources. Anchor commercial or government customers. Software margins underneath a hardware-aware product.
+          </p>
+        </div>
+      </div>
+
+      <div class="pillar-block reveal">
+        <div class="pillar-key">
+          <span class="num">/ 03</span>
+          <span class="name">Industrial Backbone</span>
+        </div>
+        <div class="pillar-body">
+          <p>
+            The supply chain that scales aerospace — advanced manufacturing, materials, sensors, power, components, and the dual-use industrial capacity that supports both commercial space and national defense.
+          </p>
+          <p>
+            Aerospace industrial capacity is structurally underbuilt. Commercial demand is growing into a supply chain that has not added capacity at the same rate, and defense industrial-base reorientation creates a parallel demand wave. Companies with proprietary manufacturing process, materials, or component IP can capture durable margins through this period.
+          </p>
+          <span class="label">What we look for</span>
+          <p>
+            Process or materials IP that is difficult to replicate. Dual-use applicability. Capital-efficient growth path with manufacturing margins. Founder teams with operating depth in regulated industrial environments.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== CHAPTER 03 ============== -->
+    <section class="chapter" id="ch-03">
+      <header class="chapter-head reveal">
+        <span class="chapter-num">/ Chapter 03</span>
+        <h2 class="chapter-title">Why Now.</h2>
+      </header>
+      <p class="chapter-lede reveal">
+        Three structural changes have converged to make this decade categorically different from the last.
+      </p>
+
+      <h3 class="reveal"><span class="h-num">/ 01</span>The cost curve has bent.</h3>
+      <p class="reveal">
+        Cost-per-kilogram to low Earth orbit has fallen by an order of magnitude since 2010, and the curve has not flattened. Launch is no longer a hero project — it is a commodity service. This single shift unlocks entire categories of orbital business models that previously could not close their unit economics. The downstream effects ripple through every layer of the space economy.
+      </p>
+
+      <div class="data-block reveal">
+        <span class="dlabel">Fig. 01 · Launch Cost · LEO · USD per kg</span>
+        <span class="dtitle">Cost-per-kilogram to LEO, 2010 → 2025</span>
+        <svg viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <!-- grid -->
+          <g stroke="rgba(255,255,255,0.06)" stroke-width="1">
+            <line x1="40" y1="40" x2="680" y2="40"/>
+            <line x1="40" y1="100" x2="680" y2="100"/>
+            <line x1="40" y1="160" x2="680" y2="160"/>
+          </g>
+          <!-- y-axis labels -->
+          <g font-family="JetBrains Mono, monospace" font-size="9" fill="rgba(255,255,255,0.4)">
+            <text x="0" y="44">$20K</text>
+            <text x="0" y="104">$10K</text>
+            <text x="0" y="164">$2K</text>
+          </g>
+          <!-- x-axis labels -->
+          <g font-family="JetBrains Mono, monospace" font-size="9" fill="rgba(255,255,255,0.4)">
+            <text x="40" y="200">2010</text>
+            <text x="200" y="200">2014</text>
+            <text x="360" y="200">2018</text>
+            <text x="520" y="200">2022</text>
+            <text x="660" y="200">2025</text>
+          </g>
+          <!-- area under -->
+          <path d="M 40 50 C 120 60, 180 80, 240 100 S 380 150, 480 165 S 600 175, 680 178 L 680 180 L 40 180 Z" fill="rgba(200,168,80,0.07)"/>
+          <!-- line -->
+          <path d="M 40 50 C 120 60, 180 80, 240 100 S 380 150, 480 165 S 600 175, 680 178" fill="none" stroke="#C8A850" stroke-width="2"/>
+          <!-- key points -->
+          <circle cx="40" cy="50" r="3.5" fill="#C8A850"/>
+          <circle cx="680" cy="178" r="3.5" fill="#C8A850"/>
+        </svg>
+        <div class="dnote">SOURCE · NASA · COMMERCIAL LAUNCH PROVIDER FILINGS · CRITICAL MASS ANALYSIS</div>
+      </div>
+
+      <h3 class="reveal"><span class="h-num">/ 02</span>Defense and commercial demand have converged.</h3>
+      <p class="reveal">
+        Allied defense spend on space-based capabilities now exceeds $30 billion annually and is accelerating. For the first time in a generation, defense and commercial are converging on the same architectures — LEO communications, Earth observation, autonomy, dual-use sensing — and the same suppliers. This collapses the historical separation between commercial and defense pipelines and creates a structurally larger addressable market for technically credible operators.
+      </p>
+
+      <h3 class="reveal"><span class="h-num">/ 03</span>The technical stack is finally ready.</h3>
+      <p class="reveal">
+        The tools required to operate in space — modern AI, autonomous systems, advanced manufacturing, miniaturized sensors, software-defined radios — have matured in parallel with the cost-curve shift. A satellite today is closer in architecture to a modern data center than to a 1990s spacecraft. This compresses build cycles, lowers minimum viable scale, and rewards software-aware hardware teams.
+      </p>
+
+      <p class="pullquote reveal">
+        Space is becoming the third major <span>infrastructure layer of the modern economy</span> — alongside terrestrial networks and computing. The companies building it are investable today.
+      </p>
+    </section>
+
+    <!-- ============== CHAPTER 04 ============== -->
+    <section class="chapter" id="ch-04">
+      <header class="chapter-head reveal">
+        <span class="chapter-num">/ Chapter 04</span>
+        <h2 class="chapter-title">Capital Discipline.</h2>
+      </header>
+      <p class="chapter-lede reveal">
+        Conviction without discipline is a thesis. Conviction with discipline is a fund.
+      </p>
+      <p class="reveal">
+        Aerospace rewards a specific architecture of capital — concentrated, patient, and technically literate. Spray-and-pray underwrites adverse selection in this sector. Generalist money struggles to evaluate physics, supply chain, and regulatory exposure with the depth that real diligence requires. Operator-led specialist capital, deployed selectively and held long, has historically outperformed in technical sectors. We are built around that observation.
+      </p>
+
+      <h3 class="reveal"><span class="h-num">/ 01</span>Concentration over coverage.</h3>
+      <p class="reveal">
+        We hold a tight portfolio of companies in which we have meaningful ownership and a real seat at the table. We say no often so we can show up fully when we say yes. The cost of distraction in this sector is too high to spread thin.
+      </p>
+
+      <h3 class="reveal"><span class="h-num">/ 02</span>Technical conviction over thematic exposure.</h3>
+      <p class="reveal">
+        Diligence is led by partners who have built, operated, and capitalized companies in aerospace, defense, and technical infrastructure. We invest where we understand the physics, the supply chain, and the customer. We do not delegate technical judgment.
+      </p>
+
+      <h3 class="reveal"><span class="h-num">/ 03</span>Patient follow-on capital.</h3>
+      <p class="reveal">
+        Aerospace compounds slowly, then quickly. We hold for fundamentals, not market windows. We commit early, support meaningfully through Series B, and reserve capacity for selective continuation thereafter. Founders who partner with us know our timeline and our resolve.
+      </p>
+
+      <h3 class="reveal"><span class="h-num">/ 04</span>Network as infrastructure.</h3>
+      <p class="reveal">
+        Beyond capital, we provide structured access to primes, agencies, allied governments, and senior operators across propulsion, sensing, manufacturing, and software. Our network is treated as portfolio infrastructure — actively maintained, intentionally deployed, and measurably useful at the points in a company's life when it matters most.
+      </p>
+    </section>
+
+    <!-- ============== CHAPTER 05 ============== -->
+    <section class="chapter" id="ch-05">
+      <header class="chapter-head reveal">
+        <span class="chapter-num">/ Chapter 05</span>
+        <h2 class="chapter-title">Boundaries.</h2>
+      </header>
+      <p class="chapter-lede reveal">
+        A thesis is defined as much by what it excludes as by what it pursues. We are explicit about what we do not fund.
+      </p>
+
+      <div class="boundary reveal">
+        <span class="x">/ 01</span>
+        <div>
+          <h4>Pure science without commercial path.</h4>
+          <p>We are an investment partner, not a research grant. Companies whose value is defined entirely by future scientific breakthroughs without a credible commercial or contracted path are outside our mandate.</p>
+        </div>
+      </div>
+      <div class="boundary reveal">
+        <span class="x">/ 02</span>
+        <div>
+          <h4>Hype-led storefronts.</h4>
+          <p>Strong narrative without underlying technical depth or unit economics is a category we have learned to recognize. We pass on companies whose primary asset is brand, regardless of valuation.</p>
+        </div>
+      </div>
+      <div class="boundary reveal">
+        <span class="x">/ 03</span>
+        <div>
+          <h4>Crewed and tourism-only platforms.</h4>
+          <p>At this stage of the cycle, we view crewed spaceflight and orbital tourism as outside our mandate. The capital intensity, regulatory exposure, and timeline misalign with our hold framework.</p>
+        </div>
+      </div>
+      <div class="boundary reveal">
+        <span class="x">/ 04</span>
+        <div>
+          <h4>Single-program dependence.</h4>
+          <p>Companies whose business model depends on a single subsidy, earmark, or contract vehicle carry concentration risk we will not underwrite. We back companies with real customers and real demand, not policy artifacts.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== CHAPTER 06 ============== -->
+    <section class="chapter" id="ch-06">
+      <header class="chapter-head reveal">
+        <span class="chapter-num">/ Chapter 06</span>
+        <h2 class="chapter-title">The Decade Ahead.</h2>
+      </header>
+      <p class="chapter-lede reveal">
+        The next ten years will resolve which companies become permanent fixtures of the space economy and which were tourists.
+      </p>
+      <p class="reveal">
+        Our base case for the decade rests on four convictions. <strong>First</strong>, orbital commerce will mature into mainstream infrastructure: communications, observation, and timing services will move from specialty markets into default operating layers for terrestrial industries. <strong>Second</strong>, geospatial intelligence will be embedded in every major industry's decision stack — from agriculture and insurance to logistics, energy, and finance. <strong>Third</strong>, dual-use will become the default architecture, not the exception, with allied governments and commercial enterprises operating on shared technical foundations. <strong>Fourth</strong>, the winners will be technically deep, capital-efficient, and patient — the same qualities that have defined category-defining companies in every prior infrastructure buildout.
+      </p>
+      <p class="pullquote reveal">
+        We do not need to be right about every company in the sector. We need to be <span>right about a small number of them</span>, and to back them with the conviction and capital they require.
+      </p>
+      <p class="reveal">
+        That is the operating assumption of Critical Mass. Concentrated capital. Technical conviction. A ten-year horizon. And a partnership posture aligned with the founders building the layer of the modern economy that did not exist a decade ago.
+      </p>
+    </section>
+
+  </article>
+</div>
+
+<!-- ============== CTA ============== -->
+<section class="cta" id="contact">
+  <div class="cta-arc"></div>
+  <div class="cta-inner">
+    <span class="eyebrow reveal">Get in touch</span>
+    <h2 class="cta-title reveal delay-1">
+      Building the backbone of <em>the space economy?</em>
+    </h2>
+    <p class="cta-sub reveal delay-2">
+      We meet a small number of founders each quarter and respond to every credible inbound. If your company is operating in our focus areas, we want to hear from you.
+    </p>
+    <div class="cta-actions reveal delay-2">
+      <a href="mailto:founders@criticalmass.capital" class="btn btn-primary">Founder inquiries <span class="arrow"></span></a>
+      <a href="mailto:lp@criticalmass.capital" class="btn btn-ghost">LP &amp; partner relations <span class="arrow"></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" style="width:42px; height:42px;">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="50" cy="50" rx="32" ry="11" stroke-width="2" transform="rotate(-22 50 50)"/>
+            <ellipse cx="50" cy="50" rx="14" ry="5" stroke-width="2" transform="rotate(-22 50 50)"/>
+            <circle cx="50" cy="50" r="3.2" fill="currentColor" stroke="none"/>
+            <line x1="74" y1="22" x2="30" y2="80" stroke-width="2.4"/>
+            <g stroke-width="1.4">
+              <line x1="20" y1="22" x2="26" y2="22"/>
+              <line x1="23" y1="19" x2="23" y2="25"/>
+            </g>
+            <g stroke-width="1.4">
+              <line x1="78" y1="82" x2="84" y2="82"/>
+              <line x1="81" y1="79" x2="81" y2="85"/>
+            </g>
+            <circle cx="14" cy="58" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="86" cy="42" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span class="brand-stack">
+          <span class="brand-name" style="font-size:18px;">Critical Mass</span>
+          <span class="brand-tag">Catalyzing the Space Economy</span>
+        </span>
+      </a>
+      <p class="footer-tag">
+        Capital for the next frontier. Investing in the infrastructure, intelligence, and industrial backbone of the space economy.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h5>Firm</h5>
+      <ul>
+        <li><a href="thesis.html">Thesis</a></li>
+        <li><a href="index.html#approach">Approach</a></li>
+        <li><a href="index.html#sectors">Portfolio</a></li>
+        <li><a href="#">Team</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Engage</h5>
+      <ul>
+        <li><a href="mailto:founders@criticalmass.capital">Founders</a></li>
+        <li><a href="mailto:lp@criticalmass.capital">LPs</a></li>
+        <li><a href="mailto:partners@criticalmass.capital">Partners</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <ul>
+        <li><a href="#">Disclosures</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Form ADV</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Critical Mass Capital · All rights reserved</span>
+    <span>v.1.0 · Established 2026</span>
+  </div>
+</footer>
+
+<script>
+  // ============== NAV SCROLL ==============
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ============== SCROLL REVEAL ==============
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ============== TOC ACTIVE STATE + READ PROGRESS ==============
+  const chapters = Array.from(document.querySelectorAll('.chapter'));
+  const tocLinks = Array.from(document.querySelectorAll('.toc a[data-target]'));
+  const pfill = document.getElementById('pfill');
+
+  function updateProgress() {
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = window.scrollY;
+    const pct = Math.min(100, Math.max(0, (scrolled / docHeight) * 100));
+    if (pfill) pfill.style.right = (100 - pct) + '%';
+
+    // active chapter
+    const middle = scrolled + window.innerHeight * 0.4;
+    let active = null;
+    chapters.forEach(ch => {
+      const top = ch.offsetTop;
+      const bottom = top + ch.offsetHeight;
+      if (middle >= top && middle < bottom) active = ch.id;
+    });
+    tocLinks.forEach(a => {
+      if (a.dataset.target === active) a.classList.add('active');
+      else a.classList.remove('active');
+    });
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  // ============== MOUSE PARALLAX ==============
+  const parallaxLayers = document.querySelectorAll('.parallax-layer');
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 16;
+    const y = (e.clientY / window.innerHeight - 0.5) * 16;
+    parallaxLayers.forEach((el, i) => {
+      const depth = (i + 1) * 0.4;
+      el.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+    });
+  });
+
+  // ============== PARTICLES ==============
+  function initParticles() {
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+    const colors = [
+      'rgba(200,168,80,0.45)',
+      'rgba(68,136,255,0.35)',
+      'rgba(255,255,255,0.30)',
+      'rgba(200,168,80,0.20)'
+    ];
+    let particles = Array.from({ length: 50 }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.1 + 0.3,
+      dx: (Math.random() - 0.5) * 0.16,
+      dy: -Math.random() * 0.22 - 0.04,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      o: Math.random() * 0.8 + 0.2,
+      pulse: Math.random() * Math.PI * 2
+    }));
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        p.pulse += 0.012;
+        const opacity = (Math.sin(p.pulse) * 0.3 + 0.7) * p.o;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color.replace(/[\d.]+\)$/, opacity.toFixed(2) + ')');
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+        if (p.x < -10) p.x = w + 10;
+        if (p.x > w + 10) p.x = -10;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+    window.addEventListener('resize', () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    });
+  }
+  initParticles();
+</script>
+
+</body>
+</html>

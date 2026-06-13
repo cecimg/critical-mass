@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Critical Mass</title>
+<meta name="description" content="Reach Critical Mass directly. All inquiries route to the founder." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050510;
+    --bg-2: #07091a;
+    --navy: #0a1226;
+    --line: rgba(255,255,255,0.06);
+    --line-2: rgba(255,255,255,0.12);
+    --text: #ffffff;
+    --text-dim: rgba(255,255,255,0.7);
+    --text-mute: rgba(255,255,255,0.38);
+    --gold: #C8A850;
+    --gold-soft: rgba(200,168,80,0.6);
+    --gold-glow: rgba(200,168,80,0.18);
+    --blue: #4488FF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #particles {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  /* ============== NAV ============== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background .4s ease, border-color .4s ease, padding .4s ease;
+    border-bottom: 1px solid transparent;
+  }
+  nav.scrolled {
+    background: rgba(5,5,16,0.85);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 56px;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; text-decoration: none; color: #F2EBD8; }
+  .brand-mark { width: 34px; height: 34px; color: #F2EBD8; }
+  .brand-mark svg { display: block; width: 100%; height: 100%; }
+  .brand-stack { display: flex; flex-direction: column; line-height: 1; }
+  .brand-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #F2EBD8;
+  }
+  .nav-links { display: flex; gap: 40px; align-items: center; }
+  .nav-links a {
+    color: var(--text-dim);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color .3s ease;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    border: 1px solid var(--gold-soft);
+    color: var(--gold);
+    background: rgba(200,168,80,0.04);
+    padding: 11px 22px;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all .3s ease;
+  }
+  .nav-cta.active {
+    background: rgba(200,168,80,0.14);
+    box-shadow: 0 0 22px rgba(200,168,80,0.18);
+  }
+
+  /* ============== HERO ============== */
+  .hero {
+    position: relative;
+    padding: 180px 56px 60px 56px;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    top: 20%; right: -10%;
+    width: 60%; height: 80%;
+    background: radial-gradient(ellipse at center, rgba(68,136,255,0.10) 0%, transparent 60%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    bottom: -10%; left: -5%;
+    width: 50%; height: 70%;
+    background: radial-gradient(ellipse at center, rgba(200,168,80,0.10) 0%, transparent 60%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .tech-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at 50% 60%, rgba(0,0,0,1) 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 60%, rgba(0,0,0,1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .doc-meta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--gold);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+    font-weight: 500;
+  }
+  .doc-meta .dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--gold-soft);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.85); }
+  }
+  .hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    margin: 0 0 36px 0;
+    max-width: 1100px;
+  }
+  .hero-title .accent {
+    background: linear-gradient(135deg, #C8A850 0%, #ffffff 60%, #C8A850 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .hero-sub {
+    max-width: 680px;
+    color: var(--text-dim);
+    font-size: 18px;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ============== FOUNDER SECTION ============== */
+  .founder {
+    position: relative;
+    z-index: 1;
+    padding: 80px 56px 140px 56px;
+  }
+  .founder .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .founder-card {
+    border: 1px solid var(--line-2);
+    border-left: 1px solid var(--gold-soft);
+    background: linear-gradient(135deg, rgba(10,18,38,0.55), rgba(7,9,26,0.35));
+    padding: 64px 64px 72px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+  .founder-card::before {
+    content: '';
+    position: absolute;
+    top: -30%; right: -10%;
+    width: 60%; height: 80%;
+    background: radial-gradient(ellipse at center, rgba(200,168,80,0.12) 0%, transparent 60%);
+    filter: blur(30px);
+    pointer-events: none;
+  }
+  .founder-card::after {
+    content: '';
+    position: absolute;
+    bottom: -20%; left: -5%;
+    width: 40%; height: 60%;
+    background: radial-gradient(ellipse at center, rgba(68,136,255,0.10) 0%, transparent 60%);
+    filter: blur(30px);
+    pointer-events: none;
+  }
+  .founder-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .founder-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: block;
+  }
+  .founder-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(40px, 4.5vw, 60px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px 0;
+  }
+  .founder-role {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+  .founder-bio {
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.75;
+    margin: 0;
+    max-width: 460px;
+  }
+  .founder-channels {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .founder-channel {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 20px;
+    align-items: center;
+    text-decoration: none;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    transition: padding-left .3s ease;
+  }
+  .founder-channel:first-child { border-top: 1px solid var(--line); }
+  .founder-channel:hover { padding-left: 8px; }
+  .founder-channel:hover .pval { color: var(--gold); }
+  .founder-channel .pkey {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--text-mute);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+  }
+  .founder-channel .pval {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    color: var(--text);
+    font-weight: 400;
+    transition: color .3s ease;
+    word-break: break-all;
+    letter-spacing: -0.005em;
+  }
+
+  /* ============== FOOTER ============== */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    padding: 72px 56px 36px 56px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  .footer-brand .brand { margin-bottom: 18px; }
+  .footer-tag {
+    color: var(--text-dim);
+    font-size: 13.5px;
+    line-height: 1.65;
+    max-width: 320px;
+  }
+  .brand-tag {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(242, 235, 216, 0.55);
+    margin-top: 4px;
+  }
+  .footer-col h5 {
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 0 0 22px 0;
+  }
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-col a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13.5px;
+    transition: color .3s ease;
+  }
+  .footer-col a:hover { color: var(--text); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 28px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-bottom span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.08em;
+  }
+
+  /* ============== REVEAL ============== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.revealed { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: .1s; }
+  .reveal.delay-2 { transition-delay: .2s; }
+
+  /* ============== RESPONSIVE ============== */
+  @media (max-width: 1024px) {
+    nav, .hero, .founder, footer { padding-left: 32px; padding-right: 32px; }
+    nav.scrolled { padding-left: 32px; padding-right: 32px; }
+    .hero { padding-top: 140px; }
+    .founder-inner { grid-template-columns: 1fr; gap: 48px; }
+    .founder-card { padding: 48px 40px; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    nav { padding: 18px 22px; }
+    nav.scrolled { padding: 14px 22px; }
+    .hero { padding: 130px 22px 40px 22px; }
+    .founder { padding: 60px 22px 90px 22px; }
+    .founder-card { padding: 36px 28px; }
+    footer { padding: 56px 22px 28px 22px; }
+    .founder-channel { grid-template-columns: 1fr; gap: 4px; }
+    .footer-top { grid-template-columns: 1fr; gap: 36px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- ============== NAV ============== -->
+<nav id="nav">
+  <a href="critical-mass-home.html" class="brand">
+    <span class="brand-mark">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="50" cy="50" rx="32" ry="11" stroke-width="2" transform="rotate(-22 50 50)"/>
+        <ellipse cx="50" cy="50" rx="14" ry="5" stroke-width="2" transform="rotate(-22 50 50)"/>
+        <circle cx="50" cy="50" r="3.2" fill="currentColor" stroke="none"/>
+        <line x1="74" y1="22" x2="30" y2="80" stroke-width="2.4"/>
+        <g stroke-width="1.4">
+          <line x1="20" y1="22" x2="26" y2="22"/>
+          <line x1="23" y1="19" x2="23" y2="25"/>
+        </g>
+        <g stroke-width="1.4">
+          <line x1="78" y1="82" x2="84" y2="82"/>
+          <line x1="81" y1="79" x2="81" y2="85"/>
+        </g>
+        <circle cx="14" cy="58" r="1" fill="currentColor" stroke="none"/>
+        <circle cx="86" cy="42" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+    </span>
+    <span class="brand-stack">
+      <span class="brand-name">Critical Mass</span>
+    </span>
+  </a>
+  <div class="nav-links">
+    <a href="critical-mass-thesis.html">Thesis</a>
+    <a href="critical-mass-home.html#focus">Focus</a>
+    <a href="critical-mass-portfolio.html">Portfolio</a>
+    <a href="critical-mass-home.html#approach">Approach</a>
+    <a href="critical-mass-contact.html" class="nav-cta active">Get in touch</a>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <div class="tech-grid parallax-layer"></div>
+  </div>
+  <div class="hero-content">
+    <div class="doc-meta reveal">
+      <span class="dot"></span>
+      <span>Contact</span>
+    </div>
+    <h1 class="hero-title reveal delay-1">
+      Reach the firm<br/>
+      <span class="accent">directly.</span>
+    </h1>
+    <p class="hero-sub reveal delay-2">
+      All inquiries — from founders, allocators, and partners — route directly to the founder.
+    </p>
+  </div>
+</section>
+
+<!-- ============== FOUNDER ============== -->
+<section class="founder">
+  <div class="container">
+    <div class="founder-card reveal">
+      <div class="founder-inner">
+
+        <div>
+          <span class="founder-label">/ Founder</span>
+          <h2 class="founder-name">Kenneth Gosier</h2>
+          <span class="founder-role">Founder &amp; Managing Partner</span>
+          <p class="founder-bio">
+            Inquiries are read and answered personally. Founders, allocators, and strategic partners are welcome to make direct contact via the channels below. All correspondence is treated as confidential.
+          </p>
+        </div>
+
+        <div class="founder-channels">
+          <a href="mailto:critical.mass.llc@proton.me" class="founder-channel">
+            <span class="pkey">Email</span>
+            <span class="pval">critical.mass.llc@proton.me</span>
+          </a>
+          <a href="tel:+17742700566" class="founder-channel">
+            <span class="pkey">Phone</span>
+            <span class="pval">+1 (774) 270-0566</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="critical-mass-home.html" class="brand">
+        <span class="brand-mark" style="width:42px; height:42px;">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="50" cy="50" rx="32" ry="11" stroke-width="2" transform="rotate(-22 50 50)"/>
+            <ellipse cx="50" cy="50" rx="14" ry="5" stroke-width="2" transform="rotate(-22 50 50)"/>
+            <circle cx="50" cy="50" r="3.2" fill="currentColor" stroke="none"/>
+            <line x1="74" y1="22" x2="30" y2="80" stroke-width="2.4"/>
+            <g stroke-width="1.4">
+              <line x1="20" y1="22" x2="26" y2="22"/>
+              <line x1="23" y1="19" x2="23" y2="25"/>
+            </g>
+            <g stroke-width="1.4">
+              <line x1="78" y1="82" x2="84" y2="82"/>
+              <line x1="81" y1="79" x2="81" y2="85"/>
+            </g>
+            <circle cx="14" cy="58" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="86" cy="42" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span class="brand-stack">
+          <span class="brand-name" style="font-size:18px;">Critical Mass</span>
+          <span class="brand-tag">Catalyzing the Space Economy</span>
+        </span>
+      </a>
+      <p class="footer-tag">
+        Capital for the next frontier. Investing in the infrastructure, intelligence, and industrial backbone of the space economy.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h5>Firm</h5>
+      <ul>
+        <li><a href="critical-mass-thesis.html">Thesis</a></li>
+        <li><a href="critical-mass-home.html#approach">Approach</a></li>
+        <li><a href="critical-mass-portfolio.html">Portfolio</a></li>
+        <li><a href="#">Team</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Engage</h5>
+      <ul>
+        <li><a href="mailto:critical.mass.llc@proton.me">Email</a></li>
+        <li><a href="tel:+17742700566">Phone</a></li>
+        <li><a href="critical-mass-contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <ul>
+        <li><a href="#">Disclosures</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Form ADV</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Critical Mass Capital · All rights reserved</span>
+    <span>v.1.0 · Established 2026</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const parallaxLayers = document.querySelectorAll('.parallax-layer');
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 16;
+    const y = (e.clientY / window.innerHeight - 0.5) * 16;
+    parallaxLayers.forEach((el, i) => {
+      const depth = (i + 1) * 0.4;
+      el.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+    });
+  });
+
+  function initParticles() {
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let w = canvas.width = window.innerWidth;
+    let h = canvas.height = window.innerHeight;
+    const colors = [
+      'rgba(200,168,80,0.45)',
+      'rgba(68,136,255,0.35)',
+      'rgba(255,255,255,0.30)',
+      'rgba(200,168,80,0.20)'
+    ];
+    let particles = Array.from({ length: 50 }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: Math.random() * 1.1 + 0.3,
+      dx: (Math.random() - 0.5) * 0.16,
+      dy: -Math.random() * 0.22 - 0.04,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      o: Math.random() * 0.8 + 0.2,
+      pulse: Math.random() * Math.PI * 2
+    }));
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach(p => {
+        p.pulse += 0.012;
+        const opacity = (Math.sin(p.pulse) * 0.3 + 0.7) * p.o;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color.replace(/[\d.]+\)$/, opacity.toFixed(2) + ')');
+        ctx.fill();
+        p.x += p.dx;
+        p.y += p.dy;
+        if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; }
+        if (p.x < -10) p.x = w + 10;
+        if (p.x > w + 10) p.x = -10;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+    window.addEventListener('resize', () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    });
+  }
+  initParticles();
+</script>
+
+</body>
+</html>

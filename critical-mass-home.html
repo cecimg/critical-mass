@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Critical Mass — Capital for the Next Frontier</title>
+<meta name="description" content="Critical Mass invests in aerospace companies building the infrastructure, intelligence, and industrial backbone of the space economy." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  /* ==========================================
+     DESIGN TOKENS
+  ========================================== */
+  :root {
+    --bg: #050510;
+    --bg-2: #07091a;
+    --navy: #0a1226;
+    --graphite: #161a24;
+    --steel: #2a313f;
+    --line: rgba(255,255,255,0.06);
+    --line-2: rgba(255,255,255,0.12);
+    --text: #ffffff;
+    --text-dim: rgba(255,255,255,0.62);
+    --text-mute: rgba(255,255,255,0.38);
+    --gold: #C8A850;
+    --gold-soft: rgba(200,168,80,0.6);
+    --gold-glow: rgba(200,168,80,0.18);
+    --blue: #4488FF;
+    --blue-soft: rgba(68,136,255,0.55);
+    --blue-glow: rgba(68,136,255,0.12);
+    --silver: #C8CDD7;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Particles canvas */
+  #particles {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* ==========================================
+     NAVIGATION
+  ========================================== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background .4s ease, border-color .4s ease, padding .4s ease;
+    border-bottom: 1px solid transparent;
+  }
+  nav.scrolled {
+    background: rgba(5,5,16,0.82);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 56px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: #F2EBD8;
+  }
+  .brand-mark {
+    width: 34px; height: 34px;
+    position: relative;
+    display: inline-block;
+    color: #F2EBD8;
+  }
+  .brand-mark svg { display: block; width: 100%; height: 100%; }
+  .brand-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #F2EBD8;
+  }
+  .brand-tag {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 9px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(242, 235, 216, 0.55);
+    margin-top: 4px;
+  }
+  .brand-stack {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+  .nav-links a {
+    color: var(--text-dim);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 400;
+    transition: color .3s ease;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    border: 1px solid var(--gold-soft);
+    color: var(--gold);
+    background: rgba(200,168,80,0.04);
+    padding: 11px 22px;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: all .3s ease;
+  }
+  .nav-cta:hover {
+    background: rgba(200,168,80,0.12);
+    box-shadow: 0 0 28px rgba(200,168,80,0.25);
+  }
+
+  /* ==========================================
+     HERO
+  ========================================== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    padding: 0 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .hero-glow-1 {
+    position: absolute;
+    top: 35%; left: -10%;
+    width: 60%; height: 80%;
+    background: radial-gradient(ellipse at center, rgba(68,136,255,0.16) 0%, transparent 60%);
+    filter: blur(40px);
+  }
+  .hero-glow-2 {
+    position: absolute;
+    bottom: -10%; right: -5%;
+    width: 50%; height: 70%;
+    background: radial-gradient(ellipse at center, rgba(200,168,80,0.12) 0%, transparent 60%);
+    filter: blur(40px);
+  }
+  .horizon {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 240vw;
+    height: 240vw;
+    max-width: none;
+    border-top: 1px solid rgba(200,168,80,0.35);
+    border-radius: 50%;
+    background:
+      radial-gradient(ellipse at top, rgba(68,136,255,0.05) 0%, transparent 30%),
+      radial-gradient(ellipse at top, rgba(200,168,80,0.07) 0%, transparent 25%);
+    box-shadow: 0 -1px 80px rgba(200,168,80,0.18), 0 -1px 200px rgba(68,136,255,0.12);
+    pointer-events: none;
+  }
+  .horizon::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 50%;
+    transform: translateX(-50%);
+    width: 30%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    filter: blur(.5px);
+  }
+  /* Orbital arc */
+  .orbit {
+    position: absolute;
+    top: 8%;
+    right: -10%;
+    width: 70vw;
+    height: 70vw;
+    max-width: 900px;
+    max-height: 900px;
+    border: 1px solid rgba(200,168,80,0.18);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .orbit::before {
+    content: '';
+    position: absolute;
+    inset: 8%;
+    border: 1px solid rgba(68,136,255,0.10);
+    border-radius: 50%;
+  }
+  .orbit::after {
+    content: '';
+    position: absolute;
+    inset: 18%;
+    border: 1px dashed rgba(255,255,255,0.06);
+    border-radius: 50%;
+  }
+  /* Orbiting tick */
+  .orbit-tick {
+    position: absolute;
+    top: 12%; right: 8%;
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 14px 2px rgba(200,168,80,0.7);
+  }
+  /* Tech grid */
+  .tech-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at 50% 60%, rgba(0,0,0,1) 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 60%, rgba(0,0,0,1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 80px;
+  }
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 32px;
+  }
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--gold-soft);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.45; transform: scale(0.85); }
+  }
+  .hero-eyebrow .divider {
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, var(--gold-soft), transparent);
+  }
+  .hero-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    font-size: clamp(56px, 9vw, 140px);
+    line-height: 0.96;
+    letter-spacing: -0.02em;
+    margin: 0 0 36px 0;
+    max-width: 1100px;
+  }
+  .hero-title .accent {
+    background: linear-gradient(135deg, #C8A850 0%, #ffffff 60%, #C8A850 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 400;
+    font-style: italic;
+  }
+  .hero-sub {
+    max-width: 620px;
+    color: var(--text-dim);
+    font-size: 17px;
+    line-height: 1.65;
+    font-weight: 300;
+    margin: 0 0 48px 0;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 30px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all .35s ease;
+    font-family: 'Inter', sans-serif;
+    border: 1px solid transparent;
+    background: transparent;
+  }
+  .btn-primary {
+    border-color: var(--gold-soft);
+    background: rgba(200,168,80,0.06);
+    color: var(--gold);
+  }
+  .btn-primary:hover {
+    background: rgba(200,168,80,0.14);
+    box-shadow: 0 0 32px rgba(200,168,80,0.25);
+    transform: translateY(-1px);
+  }
+  .btn-ghost {
+    border-color: var(--line-2);
+    color: var(--text);
+  }
+  .btn-ghost:hover {
+    border-color: rgba(255,255,255,0.32);
+    background: rgba(255,255,255,0.02);
+  }
+  .btn .arrow {
+    width: 14px; height: 1px;
+    background: currentColor;
+    position: relative;
+    transition: transform .35s ease;
+  }
+  .btn .arrow::after {
+    content: '';
+    position: absolute;
+    right: 0; top: -3px;
+    width: 7px; height: 7px;
+    border-right: 1px solid currentColor;
+    border-top: 1px solid currentColor;
+    transform: rotate(45deg);
+  }
+  .btn:hover .arrow { transform: translateX(4px); }
+
+  /* Hero side meta */
+  .hero-meta {
+    position: absolute;
+    bottom: 60px;
+    left: 56px;
+    right: 56px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+  }
+  .hero-meta .coord {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.08em;
+    line-height: 1.7;
+  }
+  .hero-meta .coord span { color: var(--gold); }
+  .scroll-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--text-mute);
+    font-size: 10px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+  }
+  .scroll-indicator .line {
+    width: 50px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-soft));
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-indicator .line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    animation: scrollLine 2.4s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* ==========================================
+     SECTION BASICS
+  ========================================== */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 140px 56px;
+  }
+  .container {
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--gold);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 28px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--gold-soft);
+  }
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    font-size: clamp(36px, 5.4vw, 72px);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    margin: 0 0 28px 0;
+    max-width: 900px;
+  }
+  .section-lede {
+    color: var(--text-dim);
+    font-size: 17px;
+    line-height: 1.65;
+    max-width: 640px;
+    margin: 0;
+  }
+
+  /* ==========================================
+     POSITIONING / MANIFESTO
+  ========================================== */
+  .manifesto {
+    position: relative;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .manifesto::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 40%, rgba(68,136,255,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .manifesto-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 100px;
+    align-items: start;
+  }
+  .manifesto-statement {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    font-size: clamp(26px, 2.6vw, 36px);
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+    color: var(--text);
+    margin: 0;
+  }
+  .manifesto-statement em {
+    color: var(--gold);
+    font-style: italic;
+    font-weight: 400;
+  }
+  .manifesto-aside {
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  .manifesto-aside p { margin: 0 0 18px 0; }
+  .manifesto-aside p:last-child { margin-bottom: 0; }
+
+  /* ==========================================
+     INVESTMENT FOCUS — Three Pillars
+  ========================================== */
+  .focus {
+    background: linear-gradient(180deg, transparent 0%, rgba(7,9,26,0.4) 50%, transparent 100%);
+  }
+  .focus-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 80px;
+  }
+  .focus-header .left { max-width: 720px; }
+  .focus-header .right {
+    color: var(--text-mute);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+  .focus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+  }
+  .pillar {
+    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    padding: 48px 36px 56px 36px;
+    position: relative;
+    transition: background .4s ease;
+  }
+  .pillar:last-child { border-right: none; }
+  .pillar:hover { background: rgba(255,255,255,0.015); }
+  .pillar:hover .pillar-num { color: var(--gold); }
+  .pillar:hover .pillar-mark::before { box-shadow: 0 0 24px var(--gold-soft); }
+
+  .pillar-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 56px;
+  }
+  .pillar-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-mute);
+    letter-spacing: 0.1em;
+    transition: color .4s ease;
+  }
+  .pillar-mark {
+    width: 28px; height: 28px;
+    border: 1px solid var(--line-2);
+    border-radius: 50%;
+    position: relative;
+  }
+  .pillar-mark::before {
+    content: '';
+    position: absolute;
+    inset: 9px;
+    background: var(--gold);
+    border-radius: 50%;
+    transition: box-shadow .4s ease;
+  }
+  .pillar-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    margin: 0 0 18px 0;
+  }
+  .pillar-desc {
+    color: var(--text-dim);
+    font-size: 14.5px;
+    line-height: 1.7;
+    margin: 0 0 30px 0;
+  }
+  .pillar-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pillar-tag {
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    padding: 6px 12px;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    font-weight: 400;
+  }
+
+  /* ==========================================
+     THESIS / WHY NOW
+  ========================================== */
+  .thesis {
+    position: relative;
+    overflow: hidden;
+  }
+  .thesis::before {
+    content: '';
+    position: absolute;
+    top: 10%; left: -20%;
+    width: 60%; height: 80%;
+    background: radial-gradient(ellipse at center, rgba(200,168,80,0.06) 0%, transparent 60%);
+    filter: blur(40px);
+    pointer-events: none;
+  }
+  .thesis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 100px;
+    align-items: start;
+  }
+  .thesis-copy .section-lede { margin-bottom: 36px; }
+  .thesis-callout {
+    border-left: 1px solid var(--gold-soft);
+    padding: 6px 0 6px 20px;
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+    font-style: italic;
+    font-weight: 300;
+    max-width: 560px;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px 56px;
+  }
+  .stat {
+    border-top: 1px solid var(--line);
+    padding-top: 22px;
+  }
+  .stat-label {
+    display: block;
+    font-size: 10.5px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+  .stat-num {
+    display: block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    font-size: clamp(48px, 5.5vw, 72px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+  .stat-num .unit { color: var(--gold); font-weight: 400; }
+  .stat-desc {
+    display: block;
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* ==========================================
+     CRITERIA STRIP
+  ========================================== */
+  .criteria {
+    background:
+      linear-gradient(180deg, transparent, rgba(10,18,38,0.4), transparent);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 90px 56px;
+  }
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+  .crit {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .crit-key {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--gold);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .crit-val {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--text);
+  }
+  .crit-note {
+    font-size: 12.5px;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+
+  /* ==========================================
+     SECTORS GRID
+  ========================================== */
+  .sectors-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 70px;
+    align-items: end;
+  }
+  .sectors-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--line);
+  }
+  .sector {
+    border-bottom: 1px solid var(--line);
+    padding: 32px 0;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 28px;
+    cursor: default;
+    transition: padding-left .35s ease;
+  }
+  .sector:hover { padding-left: 18px; }
+  .sector:hover .sector-arrow { transform: translateX(6px); color: var(--gold); }
+  .sector:nth-child(odd) { border-right: 1px solid var(--line); padding-right: 40px; }
+  .sector:nth-child(even) { padding-left: 40px; }
+  .sector:nth-child(even):hover { padding-left: 58px; }
+  .sector-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.1em;
+  }
+  .sector-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+  .sector-name span {
+    display: block;
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+    margin-top: 6px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+  }
+  .sector-arrow {
+    color: var(--text-mute);
+    font-size: 22px;
+    transition: transform .35s ease, color .35s ease;
+  }
+
+  /* ==========================================
+     APPROACH PRINCIPLES
+  ========================================== */
+  .approach {
+    position: relative;
+    overflow: hidden;
+  }
+  .approach::before {
+    content: '';
+    position: absolute;
+    top: 30%; right: -10%;
+    width: 50%; height: 60%;
+    background: radial-gradient(ellipse at center, rgba(68,136,255,0.10) 0%, transparent 60%);
+    filter: blur(50px);
+    pointer-events: none;
+  }
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: start;
+  }
+  .principles {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .principle {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 28px;
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+  }
+  .principle:last-child { border-bottom: 1px solid var(--line); }
+  .principle-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    letter-spacing: 0.18em;
+    padding-top: 4px;
+  }
+  .principle-body h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 19px;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+    letter-spacing: -0.005em;
+  }
+  .principle-body p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* ==========================================
+     CTA / CONTACT BAND
+  ========================================== */
+  .cta {
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    padding: 140px 56px 160px 56px;
+  }
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 100%, rgba(200,168,80,0.14) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 30%, rgba(68,136,255,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .cta-arc {
+    position: absolute;
+    bottom: -60%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 160vw;
+    height: 160vw;
+    max-width: none;
+    border-top: 1px solid rgba(200,168,80,0.3);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .cta-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .cta-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 300;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 28px 0;
+  }
+  .cta-title em {
+    font-style: italic;
+    font-weight: 400;
+    background: linear-gradient(135deg, #C8A850 0%, #ffffff 50%, #C8A850 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .cta-sub {
+    color: var(--text-dim);
+    font-size: 16.5px;
+    line-height: 1.65;
+    max-width: 580px;
+    margin: 0 auto 44px auto;
+  }
+  .cta-actions {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ==========================================
+     FOOTER
+  ========================================== */
+  footer {
+    position: relative;
+    z-index: 1;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+    padding: 72px 56px 36px 56px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid var(--line);
+  }
+  .footer-brand .brand { margin-bottom: 18px; }
+  .footer-tag {
+    color: var(--text-dim);
+    font-size: 13.5px;
+    line-height: 1.65;
+    max-width: 320px;
+  }
+  .footer-col h5 {
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 0 0 22px 0;
+  }
+  .footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-col a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 13.5px;
+    transition: color .3s ease;
+  }
+  .footer-col a:hover { color: var(--text); }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 28px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-bottom span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-mute);
+    letter-spacing: 0.08em;
+  }
+
+  /* ==========================================
+     SCROLL REVEAL
+  ========================================== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal.delay-1 { transition-delay: .12s; }
+  .reveal.delay-2 { transition-delay: .24s; }
+  .reveal.delay-3 { transition-delay: .36s; }
+
+  /* ==========================================
+     RESPONSIVE
+  ========================================== */
+  @media (max-width: 1024px) {
+    nav, section, .cta, footer { padding-left: 32px; padding-right: 32px; }
+    nav.scrolled { padding-left: 32px; padding-right: 32px; }
+    .hero-meta { left: 32px; right: 32px; bottom: 36px; }
+    .manifesto-grid, .thesis-grid, .approach-grid, .sectors-header { grid-template-columns: 1fr; gap: 48px; }
+    .focus-grid { grid-template-columns: 1fr; }
+    .pillar { border-right: none; }
+    .criteria-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    nav { padding: 18px 22px; }
+    nav.scrolled { padding: 14px 22px; }
+    section { padding: 90px 22px; }
+    .cta { padding: 90px 22px; }
+    footer { padding: 56px 22px 28px 22px; }
+    .hero { padding: 0 22px; }
+    .hero-meta { left: 22px; right: 22px; bottom: 24px; flex-direction: column; align-items: flex-start; gap: 24px; }
+    .stats { grid-template-columns: 1fr; gap: 32px; }
+    .criteria-grid { grid-template-columns: 1fr; }
+    .sectors-list { grid-template-columns: 1fr; }
+    .sector:nth-child(odd) { border-right: none; padding-right: 0; }
+    .sector:nth-child(even) { padding-left: 0; }
+    .footer-top { grid-template-columns: 1fr; gap: 36px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<!-- ============== NAV ============== -->
+<nav id="nav">
+  <a href="#top" class="brand">
+    <span class="brand-mark">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Outer galaxy spiral -->
+        <ellipse cx="50" cy="50" rx="32" ry="11" stroke-width="2" transform="rotate(-22 50 50)"/>
+        <!-- Inner core ring -->
+        <ellipse cx="50" cy="50" rx="14" ry="5" stroke-width="2" transform="rotate(-22 50 50)"/>
+        <!-- Center core -->
+        <circle cx="50" cy="50" r="3.2" fill="currentColor" stroke="none"/>
+        <!-- Diagonal needle -->
+        <line x1="74" y1="22" x2="30" y2="80" stroke-width="2.4"/>
+        <!-- Decorative crosses -->
+        <g stroke-width="1.4">
+          <line x1="20" y1="22" x2="26" y2="22"/>
+          <line x1="23" y1="19" x2="23" y2="25"/>
+        </g>
+        <g stroke-width="1.4">
+          <line x1="78" y1="82" x2="84" y2="82"/>
+          <line x1="81" y1="79" x2="81" y2="85"/>
+        </g>
+        <!-- Tiny dot accents -->
+        <circle cx="14" cy="58" r="1" fill="currentColor" stroke="none"/>
+        <circle cx="86" cy="42" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+    </span>
+    <span class="brand-stack">
+      <span class="brand-name">Critical Mass</span>
+    </span>
+  </a>
+  <div class="nav-links">
+    <a href="#thesis">Thesis</a>
+    <a href="#focus">Focus</a>
+    <a href="#sectors">Portfolio</a>
+    <a href="#approach">Approach</a>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </div>
+</nav>
+
+<!-- ============== HERO ============== -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <div class="tech-grid parallax-layer"></div>
+    <div class="orbit parallax-layer">
+      <div class="orbit-tick"></div>
+    </div>
+    <div class="hero-glow-1 parallax-layer"></div>
+    <div class="hero-glow-2 parallax-layer"></div>
+    <div class="horizon"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">
+      <span class="dot"></span>
+      <span>Aerospace · Investment Capital</span>
+      <span class="divider"></span>
+    </div>
+    <h1 class="hero-title reveal delay-1">
+      Capital for the<br/>
+      <span class="accent">Next Frontier.</span>
+    </h1>
+    <p class="hero-sub reveal delay-2">
+      Critical Mass invests in aerospace companies building the infrastructure, intelligence, and industrial backbone of the space economy.
+    </p>
+    <div class="hero-actions reveal delay-3">
+      <a href="#thesis" class="btn btn-primary">View thesis <span class="arrow"></span></a>
+      <a href="#contact" class="btn btn-ghost">Founder inquiries <span class="arrow"></span></a>
+    </div>
+  </div>
+
+  <div class="hero-meta">
+    <div class="coord">
+      <div>LAT <span>40.7128° N</span> &nbsp; LON <span>74.0060° W</span></div>
+      <div>SECTOR <span>SPACE / AEROSPACE / DEFENSE</span></div>
+      <div>STAGE <span>SEED · SERIES A · SERIES B</span></div>
+    </div>
+    <div class="scroll-indicator">
+      <span>Scroll</span><span class="line"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============== MANIFESTO / POSITIONING ============== -->
+<section class="manifesto" id="positioning">
+  <div class="container">
+    <div class="manifesto-grid">
+      <div class="reveal">
+        <div class="eyebrow">Positioning</div>
+        <p class="manifesto-statement">
+          We back the companies turning space from a frontier into <em>industrial infrastructure</em> — operating systems, propulsion, manufacturing, sensing, and the data layer that connects them.
+        </p>
+      </div>
+      <div class="manifesto-aside reveal delay-1">
+        <p>
+          The next decade of aerospace will be defined by execution, not exploration. The hardest problems are no longer reaching orbit — they are sustaining commerce there, integrating it with terrestrial systems, and translating space-based intelligence into operating advantage on Earth.
+        </p>
+        <p>
+          Critical Mass partners with the technical founders building that backbone. We invest with the discipline of a private fund and the technical conviction of operators who have shipped real systems.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== INVESTMENT FOCUS ============== -->
+<section class="focus" id="focus">
+  <div class="container">
+    <div class="focus-header">
+      <div class="left reveal">
+        <div class="eyebrow">Investment Focus</div>
+        <h2 class="section-title">Three pillars of the space economy.</h2>
+        <p class="section-lede">
+          We invest where capital, technical depth, and timing converge. Our mandate is concentrated and deliberate — three categories where the next generation of category-defining aerospace companies will be built.
+        </p>
+      </div>
+      <div class="right reveal delay-1">
+        / 03 PILLARS
+      </div>
+    </div>
+
+    <div class="focus-grid">
+      <div class="pillar reveal">
+        <div class="pillar-head">
+          <span class="pillar-num">/ 01</span>
+          <span class="pillar-mark"></span>
+        </div>
+        <h3 class="pillar-title">Infrastructure</h3>
+        <p class="pillar-desc">
+          The physical layer of the space economy — launch, in-space mobility, communications, ground systems, and on-orbit servicing. Hardware-defining companies with durable cost and capability advantages.
+        </p>
+        <div class="pillar-tags">
+          <span class="pillar-tag">Launch</span>
+          <span class="pillar-tag">Propulsion</span>
+          <span class="pillar-tag">Comms</span>
+          <span class="pillar-tag">Servicing</span>
+        </div>
+      </div>
+
+      <div class="pillar reveal delay-1">
+        <div class="pillar-head">
+          <span class="pillar-num">/ 02</span>
+          <span class="pillar-mark"></span>
+        </div>
+        <h3 class="pillar-title">Intelligence</h3>
+        <p class="pillar-desc">
+          The data and software layer — Earth observation, geospatial AI, signals intelligence, autonomy, and the analytic platforms that turn raw orbital data into operational decisions for governments and enterprise.
+        </p>
+        <div class="pillar-tags">
+          <span class="pillar-tag">EO / SAR</span>
+          <span class="pillar-tag">Geospatial AI</span>
+          <span class="pillar-tag">Autonomy</span>
+          <span class="pillar-tag">Defense Tech</span>
+        </div>
+      </div>
+
+      <div class="pillar reveal delay-2">
+        <div class="pillar-head">
+          <span class="pillar-num">/ 03</span>
+          <span class="pillar-mark"></span>
+        </div>
+        <h3 class="pillar-title">Industrial Backbone</h3>
+        <p class="pillar-desc">
+          The supply chain that scales aerospace — advanced manufacturing, materials, sensors, power, components, and the dual-use industrial capacity that supports both commercial space and national defense.
+        </p>
+        <div class="pillar-tags">
+          <span class="pillar-tag">Advanced Mfg.</span>
+          <span class="pillar-tag">Materials</span>
+          <span class="pillar-tag">Sensors</span>
+          <span class="pillar-tag">Dual-Use</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== THESIS / WHY NOW ============== -->
+<section class="thesis" id="thesis">
+  <div class="container">
+    <div class="thesis-grid">
+      <div class="thesis-copy reveal">
+        <div class="eyebrow">Thesis · Why Now</div>
+        <h2 class="section-title">A generational repricing of orbit.</h2>
+        <p class="section-lede">
+          Launch costs have fallen by an order of magnitude. National security demand has converged with commercial scale. And the data, autonomy, and manufacturing tools required to operate in space have matured in parallel.
+        </p>
+        <p class="thesis-callout">
+          For the first time, the economics of space rhyme with those of any other capital-intensive industry — durable, technical, and investable.
+        </p>
+      </div>
+
+      <div class="stats reveal delay-1">
+        <div class="stat">
+          <span class="stat-label">Launch Cost · LEO</span>
+          <span class="stat-num">−95<span class="unit">%</span></span>
+          <span class="stat-desc">Cost-per-kilogram decline since 2010 has unlocked entire categories of orbital business models.</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Space Economy · 2035</span>
+          <span class="stat-num">$1.8<span class="unit">T</span></span>
+          <span class="stat-desc">Forecast addressable market, with infrastructure and intelligence layers capturing the majority of value.</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Active Satellites</span>
+          <span class="stat-num">10<span class="unit">×</span></span>
+          <span class="stat-desc">Operational satellites in orbit have grown tenfold this decade — and the curve has not flattened.</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Defense Reorientation</span>
+          <span class="stat-num">$30<span class="unit">B+</span></span>
+          <span class="stat-desc">Annual U.S. allied spend on space-based capabilities, accelerating commercial dual-use demand.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CRITERIA STRIP ============== -->
+<section class="criteria">
+  <div class="container">
+    <div class="criteria-grid">
+      <div class="crit reveal">
+        <span class="crit-key">/ Stage</span>
+        <span class="crit-val">Seed → Series B</span>
+        <span class="crit-note">Concentrated commitments to companies with technical conviction and credible commercial path.</span>
+      </div>
+      <div class="crit reveal delay-1">
+        <span class="crit-key">/ Check Size</span>
+        <span class="crit-val">$1M – $10M</span>
+        <span class="crit-note">Lead and meaningful follow-on capacity through Series B and selective beyond.</span>
+      </div>
+      <div class="crit reveal delay-2">
+        <span class="crit-key">/ Geography</span>
+        <span class="crit-val">U.S. & Allied</span>
+        <span class="crit-note">Domestic and allied jurisdictions with clear export, security, and dual-use eligibility.</span>
+      </div>
+      <div class="crit reveal delay-3">
+        <span class="crit-key">/ Posture</span>
+        <span class="crit-val">Long-Hold, Active</span>
+        <span class="crit-note">Operating partnership with founders. Patient, board-engaged, technically literate capital.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SECTORS ============== -->
+<section class="sectors" id="sectors">
+  <div class="container">
+    <div class="sectors-header">
+      <div class="reveal">
+        <div class="eyebrow">Areas of Activity</div>
+        <h2 class="section-title">Where we look.</h2>
+      </div>
+      <p class="section-lede reveal delay-1">
+        A non-exhaustive view of the categories we track and where we have built operating, technical, or strategic depth. Companies we back typically sit at the intersection of two or more.
+      </p>
+    </div>
+
+    <div class="sectors-list">
+      <div class="sector reveal">
+        <span class="sector-num">01</span>
+        <span class="sector-name">Launch &amp; In-Space Mobility <span>Small lift, orbital transfer, propulsion</span></span>
+        <span class="sector-arrow">→</span>
+      </div>
+      <div class="sector reveal delay-1">
+        <span class="sector-num">02</span>
+        <span class="sector-name">Earth Observation &amp; SAR <span>Optical, radar, hyperspectral, RF</span></span>
+        <span class="sector-arrow">→</span>
+      </div>
+      <div class="sector reveal">
+        <span class="sector-num">03</span>
+        <span class="sector-name">Satellite Communications <span>LEO constellations, ground stations</span></span>
+        <span class="sector-arrow">→</span>
+      </div>
+      <div class="sector reveal delay-1">
+        <span class="sector-num">04</span>
+        <span class="sector-name">Geospatial Intelligence &amp; AI <span>Tasking, fusion, decision platforms</span></span>
+        <span class="sector-arrow">→</span>
+      </div>
+      <div class="sector reveal">
+        <span class="sector-num">05</span>
+        <span class="sector-name">On-Orbit Servicing <span>Refueling, inspection, debris</span></span>
+        <span class="sector-arrow">→</span>
+      </div>
+      <div class="sector reveal delay-1">
+        <span class="sector-num">06</span>
+        <span class="sector-name">Advanced Manufacturing <span>Composites, additive, precision components</span></span>
+        <span class="sector-arrow">→</span>
+      </div>
+      <div class="sector reveal">
+        <span class="sector-num">07</span>
+        <span class="sector-name">Defense &amp; Dual-Use Tech <span>Autonomy, sensing, electronic warfare</span></span>
+        <span class="sector-arrow">→</span>
+      </div>
+      <div class="sector reveal delay-1">
+        <span class="sector-num">08</span>
+        <span class="sector-name">Space Power &amp; Materials <span>Solar, propulsion fuels, novel materials</span></span>
+        <span class="sector-arrow">→</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== APPROACH ============== -->
+<section class="approach" id="approach">
+  <div class="container">
+    <div class="approach-grid">
+      <div class="reveal">
+        <div class="eyebrow">Approach</div>
+        <h2 class="section-title">Disciplined capital. Operating partnership.</h2>
+        <p class="section-lede">
+          We are not a passive checkbook. Our partners have built, operated, and capitalized companies in aerospace, defense, and technical infrastructure. We commit early, work closely, and hold long.
+        </p>
+      </div>
+
+      <div class="principles">
+        <div class="principle reveal">
+          <span class="principle-num">/ 01</span>
+          <div class="principle-body">
+            <h4>Technical Conviction</h4>
+            <p>We invest where we understand the physics, the supply chain, and the customer. Diligence is led by operators, not delegated to consultants.</p>
+          </div>
+        </div>
+        <div class="principle reveal delay-1">
+          <span class="principle-num">/ 02</span>
+          <div class="principle-body">
+            <h4>Concentrated Commitment</h4>
+            <p>A tight portfolio of companies with meaningful ownership. We say no often so we can show up fully when we say yes.</p>
+          </div>
+        </div>
+        <div class="principle reveal">
+          <span class="principle-num">/ 03</span>
+          <div class="principle-body">
+            <h4>Long Time Horizon</h4>
+            <p>Aerospace compounds slowly, then quickly. We hold for fundamentals, not market windows, and provide patient follow-on capital.</p>
+          </div>
+        </div>
+        <div class="principle reveal delay-1">
+          <span class="principle-num">/ 04</span>
+          <div class="principle-body">
+            <h4>Network as Infrastructure</h4>
+            <p>Direct access to primes, agencies, allied governments, and senior operators across propulsion, sensing, and manufacturing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== CTA ============== -->
+<section class="cta" id="contact">
+  <div class="cta-arc"></div>
+  <div class="cta-inner">
+    <div class="eyebrow reveal" style="justify-content:center;">Get in touch</div>
+    <h2 class="cta-title reveal delay-1">
+      Building the backbone of <em>the space economy?</em>
+    </h2>
+    <p class="cta-sub reveal delay-2">
+      We meet a small number of founders each quarter and respond to every credible inbound. If your company is operating in our focus areas, we want to hear from you.
+    </p>
+    <div class="cta-actions reveal delay-3">
+      <a href="mailto:founders@criticalmass.capital" class="btn btn-primary">Founder inquiries <span class="arrow"></span></a>
+      <a href="mailto:lp@criticalmass.capital" class="btn btn-ghost">LP &amp; partner relations <span class="arrow"></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============== FOOTER ============== -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#top" class="brand">
+        <span class="brand-mark" style="width:42px; height:42px;">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="50" cy="50" rx="32" ry="11" stroke-width="2" transform="rotate(-22 50 50)"/>
+            <ellipse cx="50" cy="50" rx="14" ry="5" stroke-width="2" transform="rotate(-22 50 50)"/>
+            <circle cx="50" cy="50" r="3.2" fill="currentColor" stroke="none"/>
+            <line x1="74" y1="22" x2="30" y2="80" stroke-width="2.4"/>
+            <g stroke-width="1.4">
+              <line x1="20" y1="22" x2="26" y2="22"/>
+              <line x1="23" y1="19" x2="23" y2="25"/>
+            </g>
+            <g stroke-width="1.4">
+              <line x1="78" y1="82" x2="84" y2="82"/>
+              <line x1="81" y1="79" x2="81" y2="85"/>
+            </g>
+            <circle cx="14" cy="58" r="1" fill="currentColor" stroke="none"/>
+            <circle cx="86" cy="42" r="1" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span class="brand-stack">
+          <span class="brand-name" style="font-size:18px;">Critical Mass</span>
+          <span class="brand-tag">Catalyzing the Space Economy</span>
+        </span>
+      </a>
+      <p class="footer-tag">
+        Capital for the next frontier. Investing in the infrastructure, intelligence, and industrial backbone of the space economy.
+      </p>
+    </div>
+    <div class="footer-col">
+      <h5>Firm</h5>
+      <ul>
+        <li><a href="#thesis">Thesis</a></li>
+        <li><a href="#approach">Approach</a></li>
+        <li><a href="#sectors">Portfolio</a></li>
+        <li><a href="#">Team</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Engage</h5>
+      <ul>
+        <li><a href="mailto:founders@criticalmass.capital">Founders</a></li>
+        <li><a href="mailto:lp@criticalmass.capital">LPs</a></li>
+        <li><a href="mailto:partners@criticalmass.capital">Partners</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <ul>
+        <li><a href="#">Disclosures</a></li>
+        <li><a href="#">Privacy</a></li>
+        <li><a href="#">Terms</a></li>
+        <li><a href="#">Form ADV</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Critical Mass Capital · All rights reserved</span>
+    <span>v.1.0 · Established 2026</span>
+  </div>
+</footer>
+
+<script>
+  // ============== NAV SCROLL ==============
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ============== SCROLL REVEAL ==============
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ============== MOUSE PARALLAX ==============
+  const parallaxLayers = document.querySelectorAll('.parallax-layer');
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    parallaxLayers.forEach((el, i) => {
+      const depth = (i + 1) * 0.4;
+      el.style.transform = `translate(${x * depth}px, ${y * depth}

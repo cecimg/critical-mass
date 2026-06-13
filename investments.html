@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Investments — Critical Mass</title>
+<meta name="description" content="Companies Critical Mass has invested in across the space economy — early-stage aerospace, satellite, propulsion, and orbital infrastructure businesses." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050510;--navy:#0a1226;--line:rgba(255,255,255,0.06);--line-2:rgba(255,255,255,0.12);--text:#fff;--text-dim:rgba(255,255,255,0.7);--text-mute:rgba(255,255,255,0.38);--gold:#C8A850;--gold-soft:rgba(200,168,80,0.6);--blue:#4488FF}
+*,*::before,*::after{box-sizing:border-box}html,body{margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-weight:300;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.7}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:22px 56px;display:flex;align-items:center;justify-content:space-between;transition:background .4s ease,border-color .4s ease,padding .4s ease;border-bottom:1px solid transparent}
+nav.scrolled{background:rgba(5,5,16,0.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line);padding:16px 56px}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:#F2EBD8}
+.brand-mark{width:34px;height:34px;color:#F2EBD8}.brand-mark svg{display:block;width:100%;height:100%}
+.brand-stack{display:flex;flex-direction:column;line-height:1}
+.brand-name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;letter-spacing:.18em;text-transform:uppercase;color:#F2EBD8}
+.brand-tag{display:block;font-family:'Inter',sans-serif;font-weight:400;font-size:9px;letter-spacing:.32em;text-transform:uppercase;color:rgba(242,235,216,0.55);margin-top:4px}
+.nav-links{display:flex;gap:40px;align-items:center}
+.nav-links a{color:var(--text-dim);font-size:12px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;font-weight:400;transition:color .3s ease;position:relative}
+.nav-links a:hover{color:var(--text)}
+.nav-links a.active{color:var(--gold)}
+.nav-links a.active::after{content:'';position:absolute;left:0;right:0;bottom:-8px;height:1px;background:var(--gold);box-shadow:0 0 8px var(--gold-soft)}
+.nav-cta{border:1px solid var(--gold-soft);color:var(--gold);background:rgba(200,168,80,0.04);padding:11px 22px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:all .3s ease}
+.nav-cta:hover{background:rgba(200,168,80,0.12);box-shadow:0 0 28px rgba(200,168,80,0.25)}
+.hero{position:relative;padding:180px 56px 80px 56px;overflow:hidden;z-index:1}
+.hero-bg::before{content:'';position:absolute;top:20%;right:-10%;width:60%;height:80%;background:radial-gradient(ellipse at center,rgba(68,136,255,0.10) 0%,transparent 60%);filter:blur(40px);pointer-events:none}
+.hero-bg::after{content:'';position:absolute;bottom:-10%;left:-5%;width:50%;height:70%;background:radial-gradient(ellipse at center,rgba(200,168,80,0.08) 0%,transparent 60%);filter:blur(40px);pointer-events:none}
+.tech-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.022) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse at 50% 60%,rgba(0,0,0,1) 0%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 50% 60%,rgba(0,0,0,1) 0%,transparent 70%);pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:1300px;margin:0 auto}
+.doc-meta{display:flex;align-items:center;gap:14px;color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;margin-bottom:36px;font-weight:500}
+.doc-meta .dot{width:6px;height:6px;background:var(--gold);border-radius:50%;box-shadow:0 0 10px var(--gold-soft);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.85)}}
+.hero-title{font-family:'Space Grotesk',sans-serif;font-weight:300;font-size:clamp(48px,7vw,110px);line-height:.98;letter-spacing:-.02em;margin:0 0 36px 0;max-width:1100px}
+.hero-title .accent{background:linear-gradient(135deg,#C8A850 0%,#fff 60%,#C8A850 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:400;font-style:italic}
+.hero-sub{max-width:680px;color:var(--text-dim);font-size:18px;line-height:1.65;margin:0}
+section{position:relative;z-index:1;padding:80px 56px 140px 56px}
+.container{max-width:1300px;margin:0 auto}
+.inv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.inv-card{display:flex;flex-direction:column;border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:0;transition:background .4s ease;cursor:pointer;text-decoration:none;color:inherit;position:relative;overflow:hidden}
+.inv-card:hover{background:rgba(255,255,255,0.018)}
+.inv-card:hover .inv-name{color:var(--gold)}
+.inv-card:hover .inv-link{color:var(--gold);transform:translateX(4px)}
+.inv-card:hover .inv-logo-wrap::before{opacity:1}
+.inv-logo-wrap{flex:1;display:flex;align-items:center;justify-content:center;min-height:160px;padding:32px;background:linear-gradient(180deg,#ffffff 0%,#f5f5f7 100%);position:relative;border-bottom:1px solid var(--line)}
+.inv-logo-wrap::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(200,168,80,0.18) 0%,transparent 60%);opacity:0;transition:opacity .4s ease;pointer-events:none;mix-blend-mode:multiply}
+.inv-logo-wrap img{max-height:64px;max-width:78%;width:auto;height:auto;object-fit:contain;transition:transform .35s ease;position:relative;z-index:1;display:block}
+.inv-card:hover .inv-logo-wrap img{transform:scale(1.04)}
+.inv-logo-fallback{display:none;font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:600;letter-spacing:-.005em;color:#0a1226;position:relative;z-index:1;text-align:center}
+.inv-card-foot{padding:28px 32px 32px 32px;border-top:1px solid var(--line);background:rgba(5,5,16,0.4)}
+.inv-num{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-mute);letter-spacing:.22em;margin-bottom:8px}
+.inv-name{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:500;line-height:1.2;margin:0 0 8px 0;letter-spacing:-.005em;transition:color .35s ease}
+.inv-desc{font-size:13.5px;color:var(--text-dim);line-height:1.6;margin:0 0 20px 0;min-height:44px}
+.inv-link{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--text-mute);letter-spacing:.22em;text-transform:uppercase;transition:color .35s ease,transform .35s ease}
+.inv-link::after{content:'→';font-size:14px}
+.inv-meta{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--line)}
+.inv-meta .right{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-mute);letter-spacing:.1em;line-height:1.7}
+.inv-meta .right span{color:var(--gold)}
+.eyebrow{display:flex;align-items:center;gap:12px;color:var(--gold);font-size:11px;letter-spacing:.3em;text-transform:uppercase;font-weight:500;margin-bottom:28px}
+.eyebrow::before{content:'';width:32px;height:1px;background:var(--gold-soft)}
+.section-lede{color:var(--text-dim);font-size:16px;line-height:1.65;max-width:680px;margin:0}
+.cta{position:relative;overflow:hidden;border-top:1px solid var(--line);padding:120px 56px 140px 56px;text-align:center;z-index:1}
+.cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(200,168,80,0.14) 0%,transparent 50%),radial-gradient(ellipse at 30% 30%,rgba(68,136,255,0.08) 0%,transparent 60%);pointer-events:none}
+.cta-inner{position:relative;z-index:2;max-width:780px;margin:0 auto}
+.cta-title{font-family:'Space Grotesk',sans-serif;font-weight:300;font-size:clamp(32px,4.5vw,56px);line-height:1.1;letter-spacing:-.015em;margin:0 0 24px 0}
+.cta-title em{font-style:italic;font-weight:400;background:linear-gradient(135deg,#C8A850 0%,#fff 50%,#C8A850 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cta-sub{color:var(--text-dim);font-size:16px;line-height:1.65;max-width:560px;margin:0 auto 36px auto}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:16px 30px;font-size:12px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .35s ease;font-family:'Inter',sans-serif;border:1px solid transparent;background:transparent}
+.btn-primary{border-color:var(--gold-soft);background:rgba(200,168,80,0.06);color:var(--gold)}
+.btn-primary:hover{background:rgba(200,168,80,0.14);box-shadow:0 0 32px rgba(200,168,80,0.25);transform:translateY(-1px)}
+.btn .arrow{width:14px;height:1px;background:currentColor;position:relative;transition:transform .35s ease}
+.btn .arrow::after{content:'';position:absolute;right:0;top:-3px;width:7px;height:7px;border-right:1px solid currentColor;border-top:1px solid currentColor;transform:rotate(45deg)}
+.btn:hover .arrow{transform:translateX(4px)}
+footer{position:relative;z-index:1;background:var(--bg);border-top:1px solid var(--line);padding:64px 56px 32px 56px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid var(--line)}
+.footer-tag{color:var(--text-dim);font-size:13.5px;line-height:1.65;max-width:340px;margin-top:18px}
+.footer-col h5{font-size:11px;color:var(--text-mute);letter-spacing:.28em;text-transform:uppercase;font-weight:500;margin:0 0 22px 0}
+.footer-col ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.footer-col a{color:var(--text-dim);text-decoration:none;font-size:13.5px;transition:color .3s ease}
+.footer-col a:hover{color:var(--text)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;flex-wrap:wrap;gap:16px}
+.footer-bottom span{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-mute);letter-spacing:.08em}
+@keyframes revealFallback{to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(30px);animation:revealFallback 1.1s cubic-bezier(0.16,1,0.3,1) 0.6s forwards;transition:opacity 1s cubic-bezier(0.16,1,0.3,1),transform 1s cubic-bezier(0.16,1,0.3,1)}
+.reveal.revealed{opacity:1;transform:translateY(0);animation:none}
+.reveal.delay-1{animation-delay:.75s;transition-delay:.1s}
+.reveal.delay-2{animation-delay:.9s;transition-delay:.2s}
+@media (max-width:1024px){nav,section,.cta,footer,.hero{padding-left:32px;padding-right:32px}nav.scrolled{padding-left:32px;padding-right:32px}.hero{padding-top:140px}.inv-grid{grid-template-columns:repeat(2,1fr)}.footer-top{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.nav-links{display:none}nav{padding:18px 22px}nav.scrolled{padding:14px 22px}.hero{padding:130px 22px 60px 22px}section{padding:60px 22px 90px 22px}.cta{padding:80px 22px}footer{padding:48px 22px 24px 22px}.inv-grid{grid-template-columns:1fr}.footer-top{grid-template-columns:1fr;gap:32px}.footer-bottom{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<nav id="nav">
+<a href="index.html" class="brand">
+<span class="brand-mark"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="50" cy="50" rx="32" ry="11" stroke-width="2" transform="rotate(-22 50 50)"/><ellipse cx="50" cy="50" rx="14" ry="5" stroke-width="2" transform="rotate(-22 50 50)"/><circle cx="50" cy="50" r="3.2" fill="currentColor" stroke="none"/><line x1="74" y1="22" x2="30" y2="80" stroke-width="2.4"/><g stroke-width="1.4"><line x1="20" y1="22" x2="26" y2="22"/><line x1="23" y1="19" x2="23" y2="25"/></g><g stroke-width="1.4"><line x1="78" y1="82" x2="84" y2="82"/><line x1="81" y1="79" x2="81" y2="85"/></g><circle cx="14" cy="58" r="1" fill="currentColor" stroke="none"/><circle cx="86" cy="42" r="1" fill="currentColor" stroke="none"/></svg></span>
+<span class="brand-stack"><span class="brand-name">Critical Mass</span></span>
+</a>
+<div class="nav-links">
+<a href="investments.html" class="active">Investments</a>
+<a href="contact.html" class="nav-cta">Get in touch</a>
+</div>
+</nav>
+<section class="hero" id="top">
+<div class="hero-bg"><div class="tech-grid"></div></div>
+<div class="hero-content">
+<div class="doc-meta reveal"><span class="dot"></span><span>Investments · Active Portfolio</span></div>
+<h1 class="hero-title reveal delay-1">Companies we've<br/><span class="accent">backed.</span></h1>
+<p class="hero-sub reveal delay-2">Critical Mass invests in early-stage aerospace companies across launch, propulsion, satellite intelligence, in-space mobility, and orbital infrastructure. Click any logo to visit the company.</p>
+</div>
+</section>
+<section class="investments">
+<div class="container">
+<div class="inv-meta reveal">
+<div><div class="eyebrow">Portfolio Companies</div><p class="section-lede">Seven operating companies building the infrastructure, intelligence, and industrial backbone of the space economy.</p></div>
+<div class="right"><div>/ 07 COMPANIES</div><div>VINTAGE · <span>2024–2026</span></div></div>
+</div>
+<div class="inv-grid">
+
+<a href="https://www.iceye.com" target="_blank" rel="noopener noreferrer" class="inv-card reveal">
+<div class="inv-card-foot">
+<span class="inv-num">/ 01</span>
+<h3 class="inv-name">ICEYE</h3>
+<p class="inv-desc">Synthetic-aperture radar (SAR) constellation delivering all-weather, day-and-night Earth observation at sub-meter resolution.</p>
+<span class="inv-link">Visit site</span>
+</div>
+</a>
+
+<a href="https://www.impulsespace.com" target="_blank" rel="noopener noreferrer" class="inv-card reveal delay-1">
+<div class="inv-card-foot">
+<span class="inv-num">/ 02</span>
+<h3 class="inv-name">Impulse Space</h3>
+<p class="inv-desc">In-space mobility and orbital transfer vehicles delivering payloads precisely from launch insertion to operational orbit.</p>
+<span class="inv-link">Visit site</span>
+</div>
+</a>
+
+<a href="https://leolabs.space" target="_blank" rel="noopener noreferrer" class="inv-card reveal delay-2">
+<div class="inv-card-foot">
+<span class="inv-num">/ 03</span>
+<h3 class="inv-name">LeoLabs</h3>
+<p class="inv-desc">Commercial radar network for low-Earth-orbit space safety, collision avoidance, and persistent satellite tracking.</p>
+<span class="inv-link">Visit site</span>
+</div>
+</a>
+
+<a href="https://www.spacerig.io" target="_blank" rel="noopener noreferrer" class="inv-card reveal">
+<div class="inv-card-foot">
+<span class="inv-num">/ 04</span>
+<h3 class="inv-name">SpaceRig</h3>
+<p class="inv-desc">Orbital infrastructure platforms enabling next-generation in-space industry, manufacturing, and operations.</p>
+<span class="inv-link">Visit site</span>
+</div>
+</a>
+
+<a href="https://ursamajor.com" target="_blank" rel="noopener noreferrer" class="inv-card reveal delay-1">
+<div class="inv-card-foot">
+<span class="inv-num">/ 05</span>
+<h3 class="inv-name">Ursa Major</h3>
+<p class="inv-desc">Liquid rocket engines for launch vehicles and hypersonic propulsion systems. American supply for the propulsion bottleneck.</p>
+<span class="inv-link">Visit site</span>
+</div>
+</a>
+
+<a href="https://www.varda.com" target="_blank" rel="noopener noreferrer" class="inv-card reveal delay-2">
+<div class="inv-card-foot">
+<span class="inv-num">/ 06</span>
+<h3 class="inv-name">Varda</h3>
+<p class="inv-desc">In-space pharmaceutical manufacturing and re-entry capsule platform — turning microgravity into a commercial production environment.</p>
+<span class="inv-link">Visit site</span>
+</div>
+</a>
+
+<a href="https://www.vastspace.com" target="_blank" rel="noopener noreferrer" class="inv-card reveal">
+<div class="inv-card-foot">
+<span class="inv-num">/ 07</span>
+<h3 class="inv-name">Vast</h3>
+<p class="inv-desc">Commercial space stations for long-duration human spaceflight — building the next layer of orbital infrastructure.</p>
+<span class="inv-link">Visit site</span>
+</div>
+</a>
+
+</div>
+</div>
+</section>
+<section class="cta">
+<div class="cta-inner">
+<div class="eyebrow reveal" style="justify-content:center">Get in touch</div>
+<h2 class="cta-title reveal delay-1">Building in the <em>space economy?</em></h2>
+<p class="cta-sub reveal delay-2">If your company is operating in our focus areas — early-stage, technically credible, capital-efficient — we'd like to hear from you.</p>
+<a href="contact.html" class="btn btn-primary reveal delay-2">Contact us <span class="arrow"></span></a>
+</div>
+</section>
+<footer>
+<div class="footer-top">
+<div class="footer-brand">
+<a href="index.html" class="brand">
+<span class="brand-mark" style="width:42px;height:42px"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="50" cy="50" rx="32" ry="11" stroke-width="2" transform="rotate(-22 50 50)"/><ellipse cx="50" cy="50" rx="14" ry="5" stroke-width="2" transform="rotate(-22 50 50)"/><circle cx="50" cy="50" r="3.2" fill="currentColor" stroke="none"/><line x1="74" y1="22" x2="30" y2="80" stroke-width="2.4"/><g stroke-width="1.4"><line x1="20" y1="22" x2="26" y2="22"/><line x1="23" y1="19" x2="23" y2="25"/></g><g stroke-width="1.4"><line x1="78" y1="82" x2="84" y2="82"/><line x1="81" y1="79" x2="81" y2="85"/></g><circle cx="14" cy="58" r="1" fill="currentColor" stroke="none"/><circle cx="86" cy="42" r="1" fill="currentColor" stroke="none"/></svg></span>
+<span class="brand-stack"><span class="brand-name" style="font-size:18px">Critical Mass</span><span class="brand-tag">Early Stage Space Investments</span></span>
+</a>
+<p class="footer-tag">Investing in early-stage aerospace companies building the infrastructure and industrial backbone of the space economy.</p>
+</div>
+<div class="footer-col"><h5>Firm</h5><ul><li><a href="investments.html">Investments</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+<div class="footer-col"><h5>Engage</h5><ul><li><a href="mailto:critical.mass.llc@proton.me">Email</a></li><li><a href="tel:+17742700566">Phone</a></li><li><a href="contact.html">Contact form</a></li></ul></div>
+</div>
+<div class="footer-bottom"><span>© 2026 Critical Mass · All rights reserved</span><span>v.1.0 · Established 2026</span></div>
+</footer>
+<script>
+(function(){
+try{
+var nav=document.getElementById('nav');
+var onScroll=function(){if(window.scrollY>40)nav.classList.add('scrolled');else nav.classList.remove('scrolled');};
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+if('IntersectionObserver' in window){var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('revealed');observer.unobserve(entry.target);}});},{threshold:0.1});document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el);});}else{document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('revealed');});}
+var canvas=document.getElementById('particles');
+if(canvas&&canvas.getContext){var ctx=canvas.getContext('2d');var w=canvas.width=window.innerWidth;var h=canvas.height=window.innerHeight;var colors=['rgba(200,168,80,0.45)','rgba(68,136,255,0.35)','rgba(255,255,255,0.30)','rgba(200,168,80,0.20)'];var particles=[];for(var i=0;i<50;i++){particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.1+0.3,dx:(Math.random()-0.5)*0.16,dy:-Math.random()*0.22-0.04,color:colors[Math.floor(Math.random()*colors.length)],o:Math.random()*0.8+0.2,pulse:Math.random()*Math.PI*2});}
+function animate(){ctx.clearRect(0,0,w,h);particles.forEach(function(p){p.pulse+=0.012;var opacity=(Math.sin(p.pulse)*0.3+0.7)*p.o;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.color.replace(/[\d.]+\)$/,opacity.toFixed(2)+')');ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.y<-10){p.y=h+10;p.x=Math.random()*w;}if(p.x<-10)p.x=w+10;if(p.x>w+10)p.x=-10;});requestAnimationFrame(animate);}
+animate();window.addEventListener('resize',function(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;});}
+}catch(err){document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('revealed');});}
+})();
+</script>
+</body>
+</html>
