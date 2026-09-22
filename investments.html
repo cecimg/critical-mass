@@ -258,6 +258,7 @@ animate();window.addEventListener('resize',function(){w=canvas.width=window.inne
   var SHEET = "https://docs.google.com/spreadsheets/d/10sB0VbMA7pqvmW-faCxhg5pLZEC7tKbCo27tdaDt8mU/gviz/tq?tqx=out:csv";
   var WORDS = ["zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten",
                "Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen","Twenty"];
+  var PREVIEW = /[?&]preview=1/.test(window.location.search);
   var NLCH = String.fromCharCode(10), CRCH = String.fromCharCode(13);
   function parseCSV(t) {
     var rows = [], row = [], cell = "", q = false, i, ch;
@@ -291,6 +292,14 @@ animate();window.addEventListener('resize',function(){w=canvas.width=window.inne
       var link = document.createElement("span"); link.className = "inv-link";
       link.textContent = "Visit site"; foot.appendChild(link);
     }
+    if (!c.live) {
+      a.style.outline = "1px dashed rgba(200,168,80,0.55)";
+      var draft = document.createElement("span");
+      draft.className = "inv-link";
+      draft.style.color = "rgba(200,168,80,0.95)";
+      draft.textContent = "Draft, not on the public page yet";
+      foot.appendChild(draft);
+    }
     a.appendChild(foot);
     return a;
   }
@@ -301,14 +310,15 @@ animate();window.addEventListener('resize',function(){w=canvas.width=window.inne
       .then(function (r) { return r.ok ? r.text() : ""; })
       .then(function (csv) {
         var list = parseCSV(csv).slice(1).map(function (r) {
-          return { name: (r[0] || "").trim(), url: (r[1] || "").trim(), desc: (r[2] || "").trim() };
-        }).filter(function (c) { return c.name && c.desc; });
+          return { name: (r[0] || "").trim(), url: (r[1] || "").trim(), desc: (r[2] || "").trim(),
+                   live: (r[3] || "").trim().toLowerCase() === "yes" };
+        }).filter(function (c) { return c.name && c.desc && (c.live || PREVIEW); });
         if (list.length < 3) return;   // something is wrong with the sheet; keep the built-in list
         list.sort(function (a, b) { return a.name.toLowerCase().localeCompare(b.name.toLowerCase()); });
         grid.textContent = "";
         list.forEach(function (c, i) { grid.appendChild(card(c, i)); });
         document.querySelectorAll(".inv-card").forEach(function (el) { el.classList.add("revealed"); });
-        var n = list.length;
+        var n = list.filter(function (c) { return c.live; }).length;
         document.body.querySelectorAll(".right div").forEach(function (el) {
           if (/\/ \d+ COMPANIES/.test(el.textContent)) { el.textContent = "/ " + n + " COMPANIES"; }
         });
