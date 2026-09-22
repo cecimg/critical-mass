@@ -119,7 +119,7 @@ footer{position:relative;z-index:1;background:var(--bg);border-top:1px solid var
 <div><div class="eyebrow">Portfolio Companies</div><p class="section-lede">Ten operating companies building the infrastructure and industrial backbone of the space economy.</p></div>
 <div class="right"><div>/ 10 COMPANIES</div><div>VINTAGE · <span>2024–2026</span></div></div>
 </div>
-<div class="inv-grid">
+<div id="inv-grid" class="inv-grid">
 
 <a href="https://www.iceye.com" target="_blank" rel="noopener noreferrer" class="inv-card reveal">
 <div class="inv-card-foot">
@@ -248,6 +248,78 @@ if(canvas&&canvas.getContext){var ctx=canvas.getContext('2d');var w=canvas.width
 function animate(){ctx.clearRect(0,0,w,h);particles.forEach(function(p){p.pulse+=0.012;var opacity=(Math.sin(p.pulse)*0.3+0.7)*p.o;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.color.replace(/[\d.]+\)$/,opacity.toFixed(2)+')');ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.y<-10){p.y=h+10;p.x=Math.random()*w;}if(p.x<-10)p.x=w+10;if(p.x>w+10)p.x=-10;});requestAnimationFrame(animate);}
 animate();window.addEventListener('resize',function(){w=canvas.width=window.innerWidth;h=canvas.height=window.innerHeight;});}
 }catch(err){document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('revealed');});}
+})();
+</script>
+<!-- Portfolio list from the "Critical Mass investments" Google Sheet.
+     Ken adds a row (Company, Website, What they do) and the page picks it up.
+     The cards written above stay as the fallback if the sheet cannot be read. -->
+<script>
+(function () {
+  var SHEET = "https://docs.google.com/spreadsheets/d/10sB0VbMA7pqvmW-faCxhg5pLZEC7tKbCo27tdaDt8mU/gviz/tq?tqx=out:csv";
+  var WORDS = ["zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten",
+               "Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen","Twenty"];
+  var NLCH = String.fromCharCode(10), CRCH = String.fromCharCode(13);
+  function parseCSV(t) {
+    var rows = [], row = [], cell = "", q = false, i, ch;
+    for (i = 0; i < t.length; i++) {
+      ch = t[i];
+      if (q) {
+        if (ch === '"' && t[i + 1] === '"') { cell += '"'; i++; }
+        else if (ch === '"') { q = false; }
+        else { cell += ch; }
+      } else if (ch === '"') { q = true; }
+      else if (ch === ",") { row.push(cell); cell = ""; }
+      else if (ch === NLCH) { row.push(cell); rows.push(row); row = []; cell = ""; }
+      else if (ch !== CRCH) { cell += ch; }
+    }
+    if (cell || row.length) { row.push(cell); rows.push(row); }
+    return rows;
+  }
+  function card(c, i) {
+    var a = document.createElement("a");
+    a.className = "inv-card " + ["reveal", "reveal delay-1", "reveal delay-2"][i % 3];
+    if (/^https?:\/\//i.test(c.url)) {
+      a.href = c.url; a.target = "_blank"; a.rel = "noopener noreferrer";
+    }
+    var foot = document.createElement("div"); foot.className = "inv-card-foot";
+    var num = document.createElement("span"); num.className = "inv-num";
+    num.textContent = "/ " + (i + 1 < 10 ? "0" : "") + (i + 1);
+    var h3 = document.createElement("h3"); h3.className = "inv-name"; h3.textContent = c.name;
+    var p = document.createElement("p"); p.className = "inv-desc"; p.textContent = c.desc;
+    foot.appendChild(num); foot.appendChild(h3); foot.appendChild(p);
+    if (a.href) {
+      var link = document.createElement("span"); link.className = "inv-link";
+      link.textContent = "Visit site"; foot.appendChild(link);
+    }
+    a.appendChild(foot);
+    return a;
+  }
+  try {
+    var grid = document.getElementById("inv-grid");
+    if (!grid) return;
+    fetch(SHEET + "&t=" + Date.now())
+      .then(function (r) { return r.ok ? r.text() : ""; })
+      .then(function (csv) {
+        var list = parseCSV(csv).slice(1).map(function (r) {
+          return { name: (r[0] || "").trim(), url: (r[1] || "").trim(), desc: (r[2] || "").trim() };
+        }).filter(function (c) { return c.name && c.desc; });
+        if (list.length < 3) return;   // something is wrong with the sheet; keep the built-in list
+        list.sort(function (a, b) { return a.name.toLowerCase().localeCompare(b.name.toLowerCase()); });
+        grid.textContent = "";
+        list.forEach(function (c, i) { grid.appendChild(card(c, i)); });
+        document.querySelectorAll(".inv-card").forEach(function (el) { el.classList.add("revealed"); });
+        var n = list.length;
+        document.body.querySelectorAll(".right div").forEach(function (el) {
+          if (/\/ \d+ COMPANIES/.test(el.textContent)) { el.textContent = "/ " + n + " COMPANIES"; }
+        });
+        var lede = document.querySelector(".section-lede");
+        if (lede) {
+          lede.textContent = lede.textContent.replace(/^\w+ operating companies/,
+            (WORDS[n] || n) + " operating companies");
+        }
+      })
+      .catch(function () {});
+  } catch (e) {}
 })();
 </script>
 </body>
